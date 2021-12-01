@@ -1,6 +1,6 @@
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://dbAdmin:dbAdmin@baseballteammates.zfkep.mongodb.net/BaseballTeammates?retryWrites=true&w=majority")
+
 db = client.BaseballTeammates
 test_collection = db.UpdateTest
 player_collection = db.Players

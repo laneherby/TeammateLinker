@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://dbAdmin:dbAdmin@baseballteammates.zfkep.mongodb.net/BaseballTeammates?retryWrites=true&w=majority")
+
 db = client.BaseballTeammates
 player_collection = db.Players
 

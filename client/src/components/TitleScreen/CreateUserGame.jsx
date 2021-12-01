@@ -7,6 +7,14 @@ const CreateUserGame = ({ goBack }) => {
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
 
+    useEffect(() => {
+
+    }, [searchResults, showResults])
+
+    const onSearchChange = (e) => {
+
+    };
+
     const checkLetters = (e) => {
         let charCode = (e.which) ? e.which : e.keyCode;
         if(!(charCode >= 65 && charCode <= 120) && (charCode !== 32 && charCode !== 0)) { 
@@ -14,7 +22,6 @@ const CreateUserGame = ({ goBack }) => {
         }
     };
 
-    
     return (
         <Box className={"gameContainer"}>
             <GoBackArrow goBack={goBack} />
@@ -26,6 +33,7 @@ const CreateUserGame = ({ goBack }) => {
                     </Box>
                     <Box className={"paramsContainer"}>
                         <Autocomplete
+                            sx={{width: "50%"}}
                             freeSolo
                             disableClearable
                             onKeyPress={checkLetters}

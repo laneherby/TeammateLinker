@@ -3,7 +3,7 @@ import requests
 import pymongo
 from pprint import pp, pprint
 
-client = pymongo.MongoClient("mongodb+srv://dbAdmin:dbAdmin@baseballteammates.zfkep.mongodb.net/BaseballTeammates?retryWrites=true&w=majority")
+
 db = client.BaseballTeammates
 player_collection = db.Players
 

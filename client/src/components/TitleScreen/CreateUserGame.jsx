@@ -14,6 +14,7 @@ const CreateUserGame = ({ goBack }) => {
         }
     };
 
+    
     return (
         <Box className={"gameContainer"}>
             <GoBackArrow goBack={goBack} />

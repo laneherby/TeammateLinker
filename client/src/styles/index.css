@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+@font-face {
+  font-family: "KanitItalic";
+  src: local("KanitItalic"),
+    url("./../fonts/Kanit-BoldItalic.ttf") format("truetype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Kanit";
+  src: local("Kanit"),
+    url("./../fonts/Kanit-Bold.ttf") format("truetype");
+  font-style: italic;
+}

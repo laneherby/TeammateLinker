@@ -1,0 +1,58 @@
+import React, { useState, useEffect } from 'react';
+import useArray from '../../hooks/useArray';
+import { Box } from '@mui/material';
+import TeamScroller from './TeamScroller';
+import SelectionHistory from './SelectionHistory';
+import PlayerAlreadySelectedDialog from './PlayerAlreadySelectedDialog';
+import SelectedPlayersDisplay from './SelectedPlayersDisplay';
+import './../../styles/App.css';
+
+const GameScreen = ({ startPlayer, endPlayer }) => {
+    const selectionHistory = useArray([]);
+    const [selectedPlayer, setSelectedPlayer] = useState(startPlayer);
+    const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
+    const [errorPlayerName, setErrorPlayerName] = useState("");
+
+    const changeSelectedPlayer = (player) => {
+        const playerInHistory = (p) => p._id === player._id;
+
+        if(selectedPlayer._id !== player._id && !selectionHistory.value.some(playerInHistory)) {
+            selectionHistory.push(selectedPlayer);
+            setSelectedPlayer(player);   
+        }
+        else {
+            setErrorPlayerName(player.name);
+            setshowAlreadySelectedDialog(true);
+        }
+    };
+
+    const goBackInHistoryToPlayer = (playerID) => {
+        let copyHistory = [...selectionHistory.value];
+        const indexOfSelected = selectionHistory.value.findIndex(p => p._id === playerID);
+        copyHistory.length = indexOfSelected;
+        setSelectedPlayer(selectionHistory.value[indexOfSelected]);
+        selectionHistory.setValue(copyHistory);
+    };
+
+    const closeAlreadySelectedDialog = () => {
+        setshowAlreadySelectedDialog(false);
+    }
+
+    useEffect(() => {
+        
+    }, [selectionHistory]);
+
+    return (
+        <Box className={"gameScreenContainer"}>
+            {
+                showAlreadySelectedDialog &&
+                <PlayerAlreadySelectedDialog open={showAlreadySelectedDialog} player={errorPlayerName} closeDialog={closeAlreadySelectedDialog} />
+            }
+            <SelectedPlayersDisplay currentlySelected={selectedPlayer} />
+            <TeamScroller selectedPlayer={selectedPlayer} changeSelectedPlayer={changeSelectedPlayer} />
+            <SelectionHistory history={selectionHistory.value} handleHistoryClick={goBackInHistoryToPlayer} />
+        </Box>
+    );
+};
+
+export default GameScreen;

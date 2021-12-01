@@ -1,1 +1,0 @@
-mongosh "mongodb+srv://baseballteammates.zfkep.mongodb.net/BaseballTeammates" --username dbAdmin

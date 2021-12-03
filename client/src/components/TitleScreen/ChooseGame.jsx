@@ -5,8 +5,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import HelpIcon from '@mui/icons-material/Help';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 
-//TODO ADD GO BACK BUTTON TO BOTH THE GAME SELECTION SCREENS
-
 const ChooseGame =({ setGameType }) => {
     
     const handleRandomClick = () => {
@@ -34,6 +32,7 @@ const ChooseGame =({ setGameType }) => {
                     <IconButton 
                         variant="contained" 
                         className={"chooseGameButtons createOwnButton"}
+                        onClick={handleSearchClick}
                     >
                         <SearchIcon />
                     </IconButton>

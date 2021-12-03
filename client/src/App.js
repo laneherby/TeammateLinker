@@ -13,28 +13,34 @@ const App = () => {
   const [gameSelected, setGameSelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
-  const nelsonCruz = {"_id":"/players/c/cruzne02.shtml","url":"/players/c/cruzne02.shtml","name":"Nelson Cruz","image":"https://www.baseball-reference.com/req/202108020/images/headshots/f/fea2f131_mlbam.jpg","teams":[{"name":"MIL","years":[2005]},{"name":"TEX","years":[2006,2007,2008,2009,2010,2011,2012,2013]},{"name":"BAL","years":[2014]},{"name":"SEA","years":[2015,2016,2017,2018]},{"name":"MIN","years":[2019,2020,2021]},{"name":"TBR","years":[2021]}]}
-
+  const nelsonCruz = {"_id":"/players/c/cruzne02.shtml","url":"/players/c/cruzne02.shtml","name":"Nelson Cruz","image":"https://www.baseball-reference.com/req/202108020/images/headshots/f/fea2f131_mlbam.jpg","teams":[{"name":"MIL","years":[2005]},{"name":"TEX","years":[2006,2007,2008,2009,2010,2011,2012,2013]},{"name":"BAL","years":[2014]},{"name":"SEA","years":[2015,2016,2017,2018]},{"name":"MIN","years":[2019,2020,2021]},{"name":"TBR","years":[2021]}]};
+  
+  const setGameType = (gameType) => {
+    setGameSelected(gameType);
+  };
+  
   const rollPlayers = (startYear, endYear) => {
     axios.get(`/api/gettwoplayers?startYear=${startYear}&endYear=${endYear}`).then((res) => {
       setStartPlayer(res.data[0]);
       setEndPlayer(res.data[1]);
     });
   };
-
-  const setGameType = (gameType) => {
-    setGameSelected(gameType);
-  };
-
+  
   const startTheGame = () => {
     //console.log(`I started the game with ${startPlayer.name} and ${endPlayer.name}`);
-    setStartPlayer(nelsonCruz);
     setGameStarted(true);
   };
 
   const goBackToGameSelection = () => {
     setGameSelected(false);
     setGameStarted(false);
+    setStartPlayer("");
+    setEndPlayer("");
+  };
+
+  const userSetPlayer = (player, type) => {
+    if(type === "start") setStartPlayer(player);
+    if(type === "end") setEndPlayer(player);
   };
 
   return (
@@ -44,7 +50,7 @@ const App = () => {
         maxWidth: "90vw!important",
       }}
     >
-      {/* {
+      {
         !gameSelected &&
         !gameStarted &&
         <ChooseGame setGameType={setGameType} />
@@ -60,14 +66,19 @@ const App = () => {
           startTheGame={startTheGame}
           goBack={goBackToGameSelection}
         />
-      } */}
+      }
 
-      <CreateUserGame
-        startPlayer={startPlayer}
-        endPlayer={endPlayer}
-        startTheGame={startTheGame}
-        goBack={goBackToGameSelection}
-      />
+      {
+        !gameStarted &&
+        gameSelected === 's' &&      
+        <CreateUserGame
+          startPlayer={startPlayer}
+          endPlayer={endPlayer}
+          userSetPlayer={userSetPlayer}
+          startTheGame={startTheGame}
+          goBack={goBackToGameSelection}
+        />
+      }
       
       {gameStarted &&
         <GameScreen 

@@ -1,20 +1,26 @@
 import React,  { useState } from "react";
-import { Box, Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 
-const PlayerAutocomplete = ({ label }) => {
+const PlayerAutocomplete = ({ label, autocSetPlayer }) => {
     const [searchResults, setSearchResults] = useState([]);
 
     const getSearchResults = (e) => {
         if(e.target.value.length >= 3) {
             axios.get(`/api/search/${e.target.value}`).then((res) => {
                 setSearchResults(res.data);
-                console.log(res.data);
             });
         }
         else {
+            if(label === "Start Player") autocSetPlayer("", "start");
+            if(label === "End Player") autocSetPlayer("", "end");
             setSearchResults([]);
         }
+    };
+
+    const playerSelected = (e, value) => {
+        if(label === "Start Player") autocSetPlayer(value, "start");
+        if(label === "End Player") autocSetPlayer(value, "end");
     };
 
     const checkLetters = (e) => {
@@ -24,6 +30,7 @@ const PlayerAutocomplete = ({ label }) => {
     };
 
     const getLabelYears = (player) => {
+        //If the play has only played for one year for one team just display on year
         if(player.teams.length === 1 && player.teams[0].years.length === 1) 
             return `(${player.teams[0].years[0]})`;
 
@@ -39,6 +46,7 @@ const PlayerAutocomplete = ({ label }) => {
             disableClearable
             onKeyDown={checkLetters}
             onKeyUp={getSearchResults}
+            onChange={playerSelected}
             options={searchResults}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => {

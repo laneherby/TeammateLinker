@@ -156,6 +156,9 @@
         CREATE OWN GAME BY SEARCHING PLAYERS
 ***********************************************************************/
 
+.autocompleteBoxes {
+    width: 40%;
+}
 
 /***********************************************************************
         ROLLING PLAYERS INPUTS AND BUTTONS

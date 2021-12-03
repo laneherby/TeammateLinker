@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../../styles/App.css';
 import { Box, TextField, Button } from '@mui/material';
 import PlayerCard from './PlayerCard';
 import Title from './Title';
@@ -13,8 +12,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
     const [canStartGame, setCanStartGame] = useState(false);
 
     const checkNumber = (e) => {
-        let charCode = (e.which) ? e.which : e.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        if(!(/^[0-9]*$/).test(e.key)) {
             e.preventDefault();
         }
     };
@@ -60,18 +58,16 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                     <Box className={"paramsContainer"}>
                         <TextField
                             label="Start Year"
-                            variant="standard"
                             value={startYear}
-                            onKeyPress={checkNumber}
+                            onKeyDown={checkNumber}
                             onChange={(e) => {setStartYear(e.target.value)}}
                             inputProps={{ maxLength: 4 }}
                         />
 
                         <TextField
                             label="End Year"
-                            variant="standard"
                             value={endYear}
-                            onKeyPress={checkNumber}
+                            onKeyDown={checkNumber}
                             onChange={(e) => {setEndYear(e.target.value)}}
                             inputProps={{ maxLength: 4 }}
                         />

@@ -222,8 +222,10 @@
 ***********************************************************************/
 .flipCard {
     background-color: transparent;
-    width: 200px;
-    height: 400px;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 400px;
     perspective: 1000px;
 }
 
@@ -255,6 +257,8 @@
 .playerImageCard {
     height: 300px;
     width: 100%;
+    border: 5px solid black;
+    border-radius: 9px;
 }
 
 .playerNameCard {    
@@ -296,7 +300,7 @@
     width: 30%;
     font-family: "KanitItalic";
     text-align: center;
-    border: 5px solid #838383;
+    border: 5px solid #989898;
     border-radius: 9px;
 }
 

@@ -19,8 +19,8 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
                 showArrows &&
                 <ScrollArrows 
                     scrollRef={historyRef} 
-                    chevWidth={"50px"} 
-                    chevHeight={"50px"}
+                    chevWidth={"5vh"} 
+                    chevHeight={"5vh"}
                     chevClassLeft={"histChevronLeft"}
                     chevClassRight={"histChevronRight"}
                 />

@@ -3,7 +3,6 @@ import { Box, LinearProgress } from '@mui/material';
 import axios from 'axios';
 import Team from './Team';
 import ScrollArrows from './ScrollArrows';
-import './../../styles/App.css';
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { teamData } from '../../data/teamData';
 

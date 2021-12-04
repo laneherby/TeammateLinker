@@ -10,12 +10,12 @@
 
 
 /***********************************************************************
-        TITLE TEXT
+        TITLE TEXT, GAME OVER, GAME WON
 ***********************************************************************/
 
 .titleText {
     font-family: "KanitItalic";
-    font-size: 9vw;
+    font-size: 10em;
     height: 25vh;
 }
 
@@ -543,4 +543,27 @@
         height: 50px !important;
         width: 50px !important;
     }
+}
+
+
+/***********************************************************************
+        GAME WON SCREEN
+***********************************************************************/
+
+.gameWonContainer {
+    font-family: "KanitItalic";    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.gameWonText {
+    font-size: 10em;
+}
+
+.playAgainButton {
+    width: 20vw;
+    margin-top:15px !important;
 }

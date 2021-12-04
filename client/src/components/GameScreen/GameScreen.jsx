@@ -5,15 +5,19 @@ import TeamScroller from './TeamScroller';
 import SelectionHistory from './SelectionHistory';
 import PlayerAlreadySelectedDialog from './PlayerAlreadySelectedDialog';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
-import './../../styles/App.css';
 
-const GameScreen = ({ startPlayer, endPlayer }) => {
+const GameScreen = ({ startPlayer, endPlayer, gameWon }) => {
     const selectionHistory = useArray([]);
     const [selectedPlayer, setSelectedPlayer] = useState(startPlayer);
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
     const [errorPlayerName, setErrorPlayerName] = useState("");
 
     const changeSelectedPlayer = (player) => {
+        if (player._id === endPlayer._id){
+            gameWon();
+            return;
+        }
+
         const playerInHistory = (p) => p._id === player._id;
 
         if(selectedPlayer._id !== player._id && !selectionHistory.value.some(playerInHistory)) {

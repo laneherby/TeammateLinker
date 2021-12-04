@@ -17,13 +17,12 @@ const ChooseGame =({ setGameType }) => {
 
     return (
         <Box className={"chooseGameContainer"}>
-
             <Title />
             <Box className={"gamesChoicesContainer"}>
                 <Box className={"gameChoiceContainer"}>
-                    <span>
+                    <span className={"unselectableText"}>
                         CREATE GAME <Tooltip
-                            title="This allows you to search for start and end players for your own game."
+                            title={<span className={"toolTipText"}>This allows you to search for start and end players for your own game.</span>}
                             placement="top"
                         >
                             <HelpIcon />
@@ -38,9 +37,9 @@ const ChooseGame =({ setGameType }) => {
                     </IconButton>
                 </Box>
                 <Box className={"gameChoiceContainer"}>
-                    <span>
+                    <span className={"unselectableText"}>
                         RANDOM GAME <Tooltip
-                            title="This will let you roll for random start and end players for the game."
+                            title={<span className={"toolTipText"}>This will let you roll for random start and end players for the game.</span>}
                             placement="top"
                         >
                             <HelpIcon />

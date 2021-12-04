@@ -48,9 +48,19 @@ const GameScreen = ({ startPlayer, endPlayer }) => {
                 showAlreadySelectedDialog &&
                 <PlayerAlreadySelectedDialog open={showAlreadySelectedDialog} player={errorPlayerName} closeDialog={closeAlreadySelectedDialog} />
             }
-            <SelectedPlayersDisplay currentlySelected={selectedPlayer} />
-            <TeamScroller selectedPlayer={selectedPlayer} changeSelectedPlayer={changeSelectedPlayer} />
-            <SelectionHistory history={selectionHistory.value} handleHistoryClick={goBackInHistoryToPlayer} />
+            <SelectedPlayersDisplay 
+                currPlayer={selectedPlayer} 
+                startPlayer={startPlayer}
+                endPlayer={endPlayer}
+            />
+            <SelectionHistory 
+                history={selectionHistory.value} 
+                handleHistoryClick={goBackInHistoryToPlayer} 
+            />
+            <TeamScroller 
+                selectedPlayer={selectedPlayer} 
+                changeSelectedPlayer={changeSelectedPlayer} 
+            />
         </Box>
     );
 };

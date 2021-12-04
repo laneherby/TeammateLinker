@@ -27,7 +27,7 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
             }
             <Box className={"historyScrollerContainer"}>
                 <Box className={"historyTitle unselectableText"}>
-                    Selection History
+                    History
                 </Box>
                 <Box className={"historyListContainer"}>
                     {
@@ -42,6 +42,7 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
                                         onClick={(e) => {handleHistoryClick(e.target.getAttribute("data-player-id"))}}
                                         className={"historyItem unselectableText"}
                                         data-player-id={player._id}
+                                        key={player._id.substring(player._id.lastIndexOf("/")+1, player._id.lastIndexOf("."))}
                                     >
                                         {player.name}
                                     </ListItem>

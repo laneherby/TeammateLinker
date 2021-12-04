@@ -1,13 +1,27 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import './../../styles/App.css';
+import PlayerDisplay from './PlayerDisplay';
 
-const SelectedPlayersDisplay = ({ currentlySelected }) => {
+const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer }) => {
     return (
-        <Box sx={{height: "33vh !important", width: "100%", backgroundColor: "green"}}>
-            <div>{currentlySelected.name}</div>
+        <Box className={"selectionsContainer"}>
+            <PlayerDisplay
+                topText={"Start Player"}
+                playerImage={startPlayer.image}
+                playerName={startPlayer.name}
+            />
+            <PlayerDisplay
+                topText={"Selected Player"}
+                playerImage={currPlayer.image}
+                playerName={currPlayer.name}
+            />
+            <PlayerDisplay
+                topText={"End Player"}
+                playerImage={endPlayer.image}
+                playerName={endPlayer.name}
+            />
         </Box>
-    )
+    );
 };
 
 export default SelectedPlayersDisplay;

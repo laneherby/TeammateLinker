@@ -86,6 +86,10 @@
     background-color: #2eb9f7 !important;
 }
 
+.toolTipText {
+    font-size: 1.5em;
+}
+
 /***********************************************************************
         BACK ARROW ICON
 ***********************************************************************/
@@ -272,6 +276,41 @@
 }
 
 /***********************************************************************
+        SELECTION DISPLAY
+***********************************************************************/
+.selectionsContainer {
+    height: 25vh;
+    width: 100%;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.displayCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 30%;
+    font-family: "KanitItalic";
+    text-align: center;
+    border: 5px solid #838383;
+    border-radius: 9px;
+}
+
+.displayCardImage {
+    display: block;
+    max-height: 350px;
+    max-width: 200px;
+    height: auto;
+    width: auto;
+    border: 1px solid black;
+    border-radius: 9px;
+}
+
+/***********************************************************************
         SELECTION HISTORY
 ***********************************************************************/
 
@@ -281,25 +320,27 @@
 }
 
 .historyScrollerContainer {
-    height: 8vh;
-    background-color: black;
+    height: 5vh;
+    background-color: #454545;
     font-family: "KanitItalic";
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 5px solid #0781b7;    
+    border: 5px solid #1d1d1d;    
     border-radius: 9px;
 }
 
 .historyTitle {
     width: 10%;
     height: 100%;
+    min-width: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-right: 5px solid #0781b7;
+    border-right: 5px solid #1d1d1d;
+    text-shadow: black 0px 0px 20px;
 }
 
 .historyListContainer {
@@ -326,12 +367,17 @@
     cursor: pointer;
 }
 
+.historyList li:last-child {
+    border-right: 0 !important;
+}
+
 .historyItem {
-    border-right: 5px solid #0781b7;
+    border-right: 5px solid #1d1d1d;
     min-width: calc(100%/5);
     padding: 0 8px !important;
     justify-content: center !important;
     text-align: center !important;
+    text-shadow: black 0px 0px 20px;
 }
 
 .histChevronLeft {    
@@ -352,7 +398,7 @@
 .teammatesContainer {
     display: flex;
     align-items: center;
-    height: 53vh; 
+    height: 63vh; 
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -447,7 +493,7 @@
     }
 }
 
-@media only screen and (max-width: 1330px) and (min-width: 769px) {
+@media only screen and (max-width: 1330px) and (min-width: 901px) {
     .teamContainer {
         min-width: calc(100%/3 - 10px);
     }
@@ -457,16 +503,40 @@
     }
     
     .chevron {
-        top: calc(50% - 37.5px);
-        height: 75px;
-        width: 75px;
+        
     }
 
     .chevronLeft {
         left: -70px;
+        height: 75px !important;
+        width: 75px !important;
     }
 
     .chevronRight {
         right: -70px;
+        height: 75px !important;
+        width: 75px !important;
+    }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 769px) {
+    .teamContainer {
+        min-width: calc(100%/3 - 10px);
+    }
+
+    .teamName span {
+        font-size: 2em;
+    }
+
+    .chevronLeft {
+        left: -50px;
+        height: 50px !important;
+        width: 50px !important;
+    }
+
+    .chevronRight {
+        right: -50px;
+        height: 50px !important;
+        width: 50px !important;
     }
 }

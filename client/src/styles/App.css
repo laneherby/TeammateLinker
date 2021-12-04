@@ -566,4 +566,6 @@
 .playAgainButton {
     width: 20vw;
     margin-top:15px !important;
+    font-family: "KanitItalic" !important;
+    font-size: 1.5em !important;
 }

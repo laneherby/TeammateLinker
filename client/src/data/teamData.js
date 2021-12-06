@@ -268,5 +268,11 @@ export const teamData = {
 		"location": "Washington",
 		"primary": "#AB0003",
 		"secondary": "#14225A"
+	},
+	"WIN": {
+		"name": "Players",
+		"location": "",
+		"primary": "#1d1d1d",
+		"secondary": "#454545"
 	}
 }

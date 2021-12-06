@@ -13,11 +13,6 @@ const GameScreen = ({ startPlayer, endPlayer, gameWon }) => {
     const [errorPlayerName, setErrorPlayerName] = useState("");
 
     const changeSelectedPlayer = (player) => {
-        if (player._id === endPlayer._id){
-            gameWon();
-            return;
-        }
-
         const playerInHistory = (p) => p._id === player._id;
 
         if(selectedPlayer._id !== player._id && !selectionHistory.value.some(playerInHistory)) {
@@ -43,7 +38,12 @@ const GameScreen = ({ startPlayer, endPlayer, gameWon }) => {
     }
 
     useEffect(() => {
+        const historyLength = selectionHistory.value.length;
         
+        if((historyLength > 0) && (selectedPlayer._id === endPlayer._id)) {
+            gameWon(selectionHistory.value);
+        }
+        // eslint-disable-next-line
     }, [selectionHistory]);
 
     return (

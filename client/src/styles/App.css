@@ -553,7 +553,7 @@
 .gameWonContainer {
     font-family: "KanitItalic";    
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
     height: 100vh;
@@ -561,11 +561,24 @@
 
 .gameWonText {
     font-size: 10em;
+    height: 20vh;
 }
 
 .playAgainButton {
     width: 20vw;
-    margin-top:15px !important;
     font-family: "KanitItalic" !important;
     font-size: 1.5em !important;
+}
+
+.playAgainButtonContainer {
+    height: 10vh;
+    padding: 2vh 0;
+}
+
+.winningTeamContainer {
+    width: calc(100% / 3);
+    height: auto;
+    min-height: 30vh;
+    max-height: 70vh;
+    padding: 2vh 0;
 }

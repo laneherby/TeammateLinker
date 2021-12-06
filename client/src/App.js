@@ -13,7 +13,8 @@ const App = () => {
   const [endPlayer, setEndPlayer] = useState("");
   const [gameSelected, setGameSelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameWon, setGameWon] = useState(true);
+  const [gameWon, setGameWon] = useState(false);
+  const [winningTeam, setWinningTeam] = useState([]);
 
   const nelsonCruz = {"_id":"/players/c/cruzne02.shtml","url":"/players/c/cruzne02.shtml","name":"Nelson Cruz","image":"https://www.baseball-reference.com/req/202108020/images/headshots/f/fea2f131_mlbam.jpg","teams":[{"name":"MIL","years":[2005]},{"name":"TEX","years":[2006,2007,2008,2009,2010,2011,2012,2013]},{"name":"BAL","years":[2014]},{"name":"SEA","years":[2015,2016,2017,2018]},{"name":"MIN","years":[2019,2020,2021]},{"name":"TBR","years":[2021]}]};
 
@@ -23,6 +24,7 @@ const App = () => {
     setGameSelected(false);
     setGameStarted(false);
     setGameWon(false);
+    setWinningTeam([]);
   };
   
   const setGameType = (gameType) => {
@@ -53,8 +55,9 @@ const App = () => {
     if(type === "end") setEndPlayer(player);
   };
 
-  const theGameWasWon = () => {
-    console.log("here");
+  const theGameWasWon = (history) => {
+    history.push(endPlayer);
+    setWinningTeam(history);
     setGameWon(true);
   };
 
@@ -110,7 +113,10 @@ const App = () => {
 
       {
         gameWon &&
-        <GameWon resetGame={resetGame} />
+        <GameWon 
+          resetGame={resetGame}
+          winningTeam={winningTeam}
+        />
       }
     </Container>
   );

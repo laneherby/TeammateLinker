@@ -1,12 +1,10 @@
 import React from "react";
-import { Box, List, ListItem} from '@mui/material';
+import { Box, List, ListItem } from '@mui/material';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
-import './../../styles/App.css';
 import { teamData } from '../../data/teamData';
 
 const Team = ({ roster, changeSelectedPlayer }) => {
-
     const teamStyles = {
         "sxContainer": {
             "background": teamData[roster._id.team].primary
@@ -24,13 +22,28 @@ const Team = ({ roster, changeSelectedPlayer }) => {
         }
     };
 
+    const displayTeamName = () => {
+        let teamName;
+        const teamYear = (roster._id.year === "") ? "" : (roster._id.year + " ");
+        const teamLoc = (teamData[roster._id.team].location === "") ? "" : (teamData[roster._id.team].location + " ");
+
+        if(roster._id.team === "WIN") {
+            teamName = teamData[roster._id.team].name;
+        }
+        else {
+            teamName = `'${roster._id.year.toString().substring(2)} ${teamData[roster._id.team].name}`
+        }
+
+        return <Box className={"teamName"} sx={teamStyles.sxTeamName}>
+                    <span className={"unselectableText"} title={`${teamYear}${teamLoc}${teamData[roster._id.team].name}`}>
+                        {teamName}
+                    </span>
+                </Box>
+    };
+
     return (
         <Box className={"teamContainer"} sx={teamStyles.sxContainer}>
-            <Box className={"teamName"} sx={teamStyles.sxTeamName}>
-                <span className={"unselectableText"} title={`${roster._id.year} ${teamData[roster._id.team].location} ${teamData[roster._id.team].name}`}>
-                    '{roster._id.year.toString().substring(2)} {teamData[roster._id.team].name}
-                </span>
-            </Box>
+            {displayTeamName()}
             <Box className={"teammateList"} sx={teamStyles.sxTeamList}>
                 <SimpleBar style={{height: "100%"}}>
                     <List>

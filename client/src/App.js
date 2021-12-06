@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import './styles/App.css';
 import ChooseGame from './components/TitleScreen/ChooseGame';
@@ -6,6 +6,7 @@ import CreateRandomGame from './components/TitleScreen/CreateRandomGame';
 import CreateUserGame from './components/TitleScreen/CreateUserGame';
 import GameScreen from './components/GameScreen/GameScreen';
 import GameWon from './components/EndScreen/GameWon';
+import useMobileCheck from  './hooks/useMobileCheck';
 import axios from 'axios';
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [winningTeam, setWinningTeam] = useState([]);
+  const isMobile = useMobileCheck();
 
   const nelsonCruz = {"_id":"/players/c/cruzne02.shtml","url":"/players/c/cruzne02.shtml","name":"Nelson Cruz","image":"https://www.baseball-reference.com/req/202108020/images/headshots/f/fea2f131_mlbam.jpg","teams":[{"name":"MIL","years":[2005]},{"name":"TEX","years":[2006,2007,2008,2009,2010,2011,2012,2013]},{"name":"BAL","years":[2014]},{"name":"SEA","years":[2015,2016,2017,2018]},{"name":"MIN","years":[2019,2020,2021]},{"name":"TBR","years":[2021]}]};
 

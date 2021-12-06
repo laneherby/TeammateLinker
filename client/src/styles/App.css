@@ -505,10 +505,6 @@
     .teamName span {
         font-size: 2em;
     }
-    
-    .chevron {
-        
-    }
 
     .chevronLeft {
         left: -70px;
@@ -581,4 +577,8 @@
     min-height: 30vh;
     max-height: 70vh;
     padding: 2vh 0;
+}
+
+.winningTeamContainer li {
+    cursor: default;
 }

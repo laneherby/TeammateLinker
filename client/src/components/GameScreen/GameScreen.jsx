@@ -4,14 +4,18 @@ import { Box } from '@mui/material';
 import TeamScroller from './TeamScroller';
 import SelectionHistory from './SelectionHistory';
 import PlayerAlreadySelectedDialog from './PlayerAlreadySelectedDialog';
+import AskSolveDialog from './AskSolveDialog';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
 import CloseGameIcon from './CloseGameIcon';
+import SolveGameIcon from './SolveGameIcon';
 
-const GameScreen = ({ startPlayer, endPlayer, gameWon, resetGame }) => {
+const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) => {
     const selectionHistory = useArray([]);
     const [selectedPlayer, setSelectedPlayer] = useState(startPlayer);
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
     const [errorPlayerName, setErrorPlayerName] = useState("");
+    const [showSolveDialog, setShowSolveDialog] = useState(false);
+
 
     const changeSelectedPlayer = (player) => {
         const playerInHistory = (p) => p._id === player._id;
@@ -36,13 +40,21 @@ const GameScreen = ({ startPlayer, endPlayer, gameWon, resetGame }) => {
 
     const closeAlreadySelectedDialog = () => {
         setshowAlreadySelectedDialog(false);
-    }
+    };
+
+    const openSolveDialog = () => {
+        setShowSolveDialog(true);
+    };
+
+    const closeSolveDialog = () => {
+        setShowSolveDialog(false);
+    };
 
     useEffect(() => {
         const historyLength = selectionHistory.value.length;
         
         if((historyLength > 0) && (selectedPlayer._id === endPlayer._id)) {
-            gameWon(selectionHistory.value);
+            winGame(selectionHistory.value);
         }
         // eslint-disable-next-line
     }, [selectionHistory]);
@@ -50,10 +62,15 @@ const GameScreen = ({ startPlayer, endPlayer, gameWon, resetGame }) => {
     return (
         <Box className={"gameScreenContainer"}>
             <CloseGameIcon reset={resetGame} />
-            {
-                showAlreadySelectedDialog &&
-                <PlayerAlreadySelectedDialog open={showAlreadySelectedDialog} player={errorPlayerName} closeDialog={closeAlreadySelectedDialog} />
-            }
+            <SolveGameIcon openSolveDialog={openSolveDialog} />
+
+            <AskSolveDialog 
+                open={showSolveDialog}
+                solveGame={solveGame}
+                closeSolveDialog={closeSolveDialog}
+            />
+            <PlayerAlreadySelectedDialog open={showAlreadySelectedDialog} player={errorPlayerName} closeDialog={closeAlreadySelectedDialog} />
+
             <SelectedPlayersDisplay 
                 currPlayer={selectedPlayer} 
                 startPlayer={startPlayer}

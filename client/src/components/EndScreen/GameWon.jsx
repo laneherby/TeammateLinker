@@ -18,8 +18,6 @@ const GameWon = ({ resetGame, winningTeam }) => {
             "results": winningTeam
         };
 
-        console.log(roster);
-
         setWinners(roster);
     }, [winningTeam]);
 

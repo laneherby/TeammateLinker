@@ -111,7 +111,7 @@
 }
 
 /***********************************************************************
-        BACK ARROW ICON
+        CLOSE GAME ICON
 ***********************************************************************/
 
 .closeGameContainer {
@@ -128,6 +128,27 @@
 }
 
 .closeGameContainer:hover svg {
+    fill: #FDFEFF;
+}
+
+/***********************************************************************
+        SOLVE GAME ICON
+***********************************************************************/
+
+.solveGameContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1% 1% 0 0;
+    margin: 0 !important
+}
+
+.solveGameContainer svg {
+    font-size: 4em;
+    fill: #71797E;
+}
+
+.solveGameContainer:hover svg {
     fill: #FDFEFF;
 }
 
@@ -297,7 +318,6 @@
 
 .gameScreenContainer > div {
     margin: 1vh 0;
-    width: 100%;
 }
 
 /***********************************************************************

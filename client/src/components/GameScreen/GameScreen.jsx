@@ -5,8 +5,9 @@ import TeamScroller from './TeamScroller';
 import SelectionHistory from './SelectionHistory';
 import PlayerAlreadySelectedDialog from './PlayerAlreadySelectedDialog';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
+import CloseGameIcon from './CloseGameIcon';
 
-const GameScreen = ({ startPlayer, endPlayer, gameWon }) => {
+const GameScreen = ({ startPlayer, endPlayer, gameWon, resetGame }) => {
     const selectionHistory = useArray([]);
     const [selectedPlayer, setSelectedPlayer] = useState(startPlayer);
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
@@ -48,6 +49,7 @@ const GameScreen = ({ startPlayer, endPlayer, gameWon }) => {
 
     return (
         <Box className={"gameScreenContainer"}>
+            <CloseGameIcon reset={resetGame} />
             {
                 showAlreadySelectedDialog &&
                 <PlayerAlreadySelectedDialog open={showAlreadySelectedDialog} player={errorPlayerName} closeDialog={closeAlreadySelectedDialog} />

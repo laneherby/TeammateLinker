@@ -111,6 +111,27 @@
 }
 
 /***********************************************************************
+        BACK ARROW ICON
+***********************************************************************/
+
+.closeGameContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1% 0 0 1%;
+    margin: 0 !important
+}
+
+.closeGameContainer svg {
+    font-size: 4em;
+    fill: #71797E;
+}
+
+.closeGameContainer:hover svg {
+    fill: #FDFEFF;
+}
+
+/***********************************************************************
         CLASSES FOR BOTH GAME TYPES
 ***********************************************************************/
 

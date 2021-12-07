@@ -110,6 +110,7 @@ const App = () => {
           startPlayer={startPlayer}
           endPlayer={endPlayer}
           gameWon={theGameWasWon}
+          resetGame={resetGame}
         />
       }
 

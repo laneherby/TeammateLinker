@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
-const MongoConnection = require('./mongo')
+const MongoConnection = require('./mongo');
+const { spawn } = require('child_process')
 
 const app = new Koa();
 const router = KoaRouter();
@@ -22,11 +23,32 @@ router.get("/api/getteammates/:playerID", async (ctx, next) => {
 });
 
 router.get("/api/search/:name", async (ctx, next) => {
-  console.log(ctx.params.name)
   const searchResult = await MongoConnection.searchPlayerNames(ctx.params.name);
   ctx.body = searchResult;
 });
 
+router.get("/api/solve", async (ctx, next) => {  
+  const runPy = new Promise((resolve, reject) => {
+    const pyProg = spawn("python3", ["/home/herby/app/TeammateLinkerGame/PythonScripts/SolveGame.py", ctx.query.startPlayer, ctx.query.endPlayer]);
+    let playerList = [];
+
+    pyProg.stdout.on("data", (data) => {
+        playerList.push(data.toString());
+    });
+
+    pyProg.stderr.on("data", (data) => {
+        reject(data.toString());
+    });
+
+    pyProg.on("close", (code) => {
+        playerList = playerList.toString().split("\n");
+        playerList.pop();
+        resolve(playerList);
+    });
+  });
+
+  ctx.body = await runPy;
+});
 
 app
   .use(router.routes())

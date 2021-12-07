@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import './styles/App.css';
 import ChooseGame from './components/TitleScreen/ChooseGame';

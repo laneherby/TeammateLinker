@@ -5,7 +5,7 @@ const CloseGameIcon = ({ reset }) => {
     return (
         <div 
             className={"closeGameContainer"}
-            onClick={reset}
+            onClick={() => reset("GAME_CHOICE")}
         >
             <CloseIcon />
         </div>

@@ -54,7 +54,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
         const historyLength = selectionHistory.value.length;
         
         if((historyLength > 0) && (selectedPlayer._id === endPlayer._id)) {
-            winGame(selectionHistory.value);
+            winGame("GAME_WON", selectionHistory.value);
         }
         // eslint-disable-next-line
     }, [selectionHistory]);

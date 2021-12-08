@@ -20,7 +20,7 @@ const PlayerAlreadySelectedDialog = ({ open, solveGame, closeSolveDialog }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={solveGame}>
+                <Button onClick={() => solveGame("GAME_SOLVED")}>
                     Yes
                 </Button>
                 <Button onClick={closeSolveDialog}>

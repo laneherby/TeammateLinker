@@ -100,7 +100,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                         variant="contained"
                         className={"startButton titleButtons glossyButtons"}
                         disabled={!canStartGame}
-                        onClick={startTheGame}
+                        onClick={() => startTheGame("GAME_STARTED")}
                     >
                         START GAME
                     </Button>

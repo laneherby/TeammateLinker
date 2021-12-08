@@ -5,7 +5,7 @@ const GoBackArrow = ({ goBack }) => {
     return (
         <div 
             className={"backArrowContainer"}
-            onClick={goBack}    
+            onClick={() => goBack("GAME_CHOICE")}    
         >
             <ArrowBackIcon />
         </div>

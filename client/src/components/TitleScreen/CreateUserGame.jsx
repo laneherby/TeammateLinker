@@ -56,7 +56,7 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
                         variant="contained"
                         className={"startButton titleButtons glossyButtons"}
                         disabled={!canStartGame}
-                        onClick={startTheGame}
+                        onClick={() => startTheGame("GAME_STARTED")}
                     >
                         START GAME
                     </Button>

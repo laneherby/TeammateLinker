@@ -65,7 +65,7 @@ export const teamData = {
 		"primary": "#220F5D",
 		"secondary": "#8B8D8B"
 	},
-	"CWS": {
+	"CHW": {
 		"name": "White Sox",
 		"location": "Chicago",
 		"primary": "#27251F",

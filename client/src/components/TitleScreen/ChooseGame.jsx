@@ -8,11 +8,11 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 const ChooseGame =({ setGameType }) => {
     
     const handleRandomClick = () => {
-        setGameType("r");
+        setGameType("RANDOM_GAME_SELECTED");
     };
 
     const handleSearchClick = () => {
-        setGameType("s");
+        setGameType("USER_GAME_SELECTED");
     };
 
     return (

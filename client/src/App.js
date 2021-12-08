@@ -31,7 +31,7 @@ const App = () => {
     if(type === "end") setEndPlayer(player);
   };
 
-  const changeGameState = async (state, history) => {    
+  const changeGameState = async (state, history) => {
     switch (state) {
       case GAME_CHOICE:
         setStartPlayer("");
@@ -124,7 +124,7 @@ const App = () => {
     >
       <UnsolvableWarningDialog
         open={showUnsolvableWarning}
-        resetGame={setGameState}
+        resetGame={changeGameState}
         closeDialog={closeUnsolvableWarningDialog}
       />
       {renderGameState()}

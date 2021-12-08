@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ScrollArrows from './ScrollArrows';
-import { Box, List, ListItem } from '@mui/material';
-import './../../styles/App.css';
+import { Box, List, ListItem, Tooltip } from '@mui/material';
+import HelpIcon from '@mui/icons-material/Help';
 
 const SelectionHistory = ({ history, handleHistoryClick }) => {
     const historyRef = useRef(null);
@@ -27,7 +27,13 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
             }
             <Box className={"historyScrollerContainer"}>
                 <Box className={"historyTitle unselectableText"}>
-                    History
+                    History <Tooltip
+                            sx={{padding: "3px", marginLeft: "3px"}}
+                            title={<span className={"toolTipText"}>This shows your past selections. If you click one of the player names it will take you back to that spot.</span>}
+                            placement="top"
+                        >
+                            <HelpIcon />
+                        </Tooltip>
                 </Box>
                 <Box className={"historyListContainer"}>
                     {

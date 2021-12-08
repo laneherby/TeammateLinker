@@ -20,10 +20,10 @@ const PlayerAlreadySelectedDialog = ({ open, solveGame, closeSolveDialog }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => solveGame("GAME_SOLVED")}>
+                <Button onClick={() => solveGame("GAME_SOLVED")} variant="contained">
                     Yes
                 </Button>
-                <Button onClick={closeSolveDialog}>
+                <Button onClick={closeSolveDialog} variant="contained">
                     No
                 </Button>
             </DialogActions>

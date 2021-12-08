@@ -6,6 +6,7 @@ import CreateRandomGame from './components/TitleScreen/CreateRandomGame';
 import CreateUserGame from './components/TitleScreen/CreateUserGame';
 import GameScreen from './components/GameScreen/GameScreen';
 import GameWon from './components/EndScreen/GameWon';
+import UnsolvableWarningDialog from './components/GameScreen/UnsolvableWarningDialog';
 import useMobileCheck from  './hooks/useMobileCheck';
 import axios from 'axios';
 
@@ -21,35 +22,39 @@ const App = () => {
   const [startPlayer, setStartPlayer] = useState("");
   const [endPlayer, setEndPlayer] = useState("");
   const [winningTeam, setWinningTeam] = useState([]);
+  const [showUnsolvableWarning, setShowUnsolvableWarning] = useState(false);
   
   const isMobile = useMobileCheck();
 
   const userSetPlayer = (player, type) => {
-    console.log(player);
     if(type === "start") setStartPlayer(player);
     if(type === "end") setEndPlayer(player);
   };
 
-  const changeGameState = (state, history) => {
-    setGameState(state);
+  const changeGameState = async (state, history) => {    
     switch (state) {
       case GAME_CHOICE:
         setStartPlayer("");
         setEndPlayer("");
         setWinningTeam([]);
+        setShowUnsolvableWarning(false);
+        break;
+      case GAME_STARTED:
+        const solvable = await isGameSolvable();
+        if(!solvable) setShowUnsolvableWarning(true);
         break;
       case GAME_WON:
         history.push(endPlayer);
         setWinningTeam(history);
         break;
       case GAME_SOLVED: 
-          axios.get(`/api/solve?startPlayer=${startPlayer._id.substring(startPlayer._id.lastIndexOf("/")+1, startPlayer._id.lastIndexOf("."))}&endPlayer=${endPlayer._id.substring(endPlayer._id.lastIndexOf("/")+1, endPlayer._id.lastIndexOf("."))}`).then((res) => {
-            console.log(res.data);
-          });
+          solveGame();
         break;
       default:
         break;
     }
+
+    setGameState(state);
   };
 
   const rollPlayers = (startYear, endYear) => {
@@ -57,6 +62,22 @@ const App = () => {
       setStartPlayer(res.data[0]);
       setEndPlayer(res.data[1]);
     });
+  };
+
+  const solveGame = async () => {
+    const playerLinks = (await axios.get(`/api/solve?startPlayer=${startPlayer._id.substring(startPlayer._id.lastIndexOf("/")+1, startPlayer._id.lastIndexOf("."))}&endPlayer=${endPlayer._id.substring(endPlayer._id.lastIndexOf("/")+1, endPlayer._id.lastIndexOf("."))}`)).data;    
+    return playerLinks;
+  };
+
+  const isGameSolvable = async () => {
+    const solvedData = await solveGame();
+    if(solvedData.length === 1 && solvedData[0] === "NO ANSWERS") return false;
+
+    return true;
+  };
+
+  const closeUnsolvableWarningDialog = () => {
+    setShowUnsolvableWarning(false);
   };
   
   const renderGameState = () => {
@@ -101,7 +122,12 @@ const App = () => {
         maxWidth: "90vw!important",
       }}
     >
-     {renderGameState()}
+      <UnsolvableWarningDialog
+        open={showUnsolvableWarning}
+        resetGame={setGameState}
+        closeDialog={closeUnsolvableWarningDialog}
+      />
+      {renderGameState()}
     </Container>
   );
 }

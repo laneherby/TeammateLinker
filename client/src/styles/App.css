@@ -8,6 +8,9 @@
     user-select: none; /* Standard */
 }
 
+.linkColor {
+    color: #90CCF9;
+}
 
 /***********************************************************************
         TITLE TEXT, GAME OVER, GAME WON

@@ -6,6 +6,7 @@ import CreateRandomGame from './components/TitleScreen/CreateRandomGame';
 import CreateUserGame from './components/TitleScreen/CreateUserGame';
 import GameScreen from './components/GameScreen/GameScreen';
 import GameWon from './components/EndScreen/GameWon';
+import GameSolved from './components/EndScreen/GameSolved';
 import UnsolvableWarningDialog from './components/GameScreen/UnsolvableWarningDialog';
 import useMobileCheck from  './hooks/useMobileCheck';
 import axios from 'axios';
@@ -48,7 +49,8 @@ const App = () => {
         setWinningTeam(history);
         break;
       case GAME_SOLVED: 
-          solveGame();
+        const solvedTeam = await solveGame();
+        setWinningTeam(solvedTeam);
         break;
       default:
         break;
@@ -110,6 +112,8 @@ const App = () => {
         />;
       case GAME_WON:
         return <GameWon resetGame={changeGameState} winningTeam={winningTeam} />;
+      case GAME_SOLVED:
+        return <GameSolved resetGame={changeGameState} solvedTeam={winningTeam} />;
       default:
         break;
     }

@@ -61,7 +61,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
 
     return (
         <Box className={"gameScreenContainer"}>
-            <CloseGameIcon reset={resetGame} />
+            <CloseGameIcon resetGame={resetGame} />
             <SolveGameIcon openSolveDialog={openSolveDialog} />
 
             <AskSolveDialog 

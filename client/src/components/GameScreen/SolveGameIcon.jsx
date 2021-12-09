@@ -6,6 +6,7 @@ const SolveGameIcon = ({ openSolveDialog }) => {
         <div 
             className={"solveGameContainer"}
             onClick={openSolveDialog}
+            title={"Solve Game"}
         >
             <LightbulbIcon />
         </div>

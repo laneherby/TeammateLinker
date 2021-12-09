@@ -587,10 +587,10 @@
 
 
 /***********************************************************************
-        GAME WON SCREEN
+        GAME WON SCREEN OR GAME SOLVED SCREEN
 ***********************************************************************/
 
-.gameWonContainer {
+.endScreenContainer {
     font-family: "KanitItalic";    
     display: flex;
     justify-content: space-evenly;
@@ -599,7 +599,7 @@
     height: 100vh;
 }
 
-.gameWonText {
+.gameEndText {
     font-size: 10em;
     height: 20vh;
 }
@@ -625,4 +625,8 @@
 
 .winningTeamContainer li {
     cursor: default;
+}
+
+.noSolutionText {
+    font-size: 5em;
 }

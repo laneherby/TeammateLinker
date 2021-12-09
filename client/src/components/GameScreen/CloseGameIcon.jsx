@@ -1,11 +1,12 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
 
-const CloseGameIcon = ({ reset }) => {
+const CloseGameIcon = ({ resetGame }) => {
     return (
         <div 
             className={"closeGameContainer"}
-            onClick={() => reset("GAME_CHOICE")}
+            onClick={() => resetGame("GAME_CHOICE")}
+            title={"Close Game"}
         >
             <CloseIcon />
         </div>

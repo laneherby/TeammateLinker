@@ -7,18 +7,20 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 const GameWon = ({ resetGame, winningTeam }) => {
     const { width, height } = useWindowDimensions();
-    const [winners, setWinners] = useState("");
+    const [teamMarkup, setTeamMarkup] = useState("");
 
     useEffect(() => {
-        const roster = {
-            "_id": {
-                "team": "WIN",
-                "year": ""
-            },
-            "results": winningTeam
-        };
+        if(winningTeam.length > 1) {
+            const roster = {
+                "_id": {
+                    "team": "WIN",
+                    "year": ""
+                },
+                "results": winningTeam
+            };
 
-        setWinners(roster);
+            setTeamMarkup(<Box className={"winningTeamContainer"}><Team roster={roster} changeSelectedPlayer={() => {}} /></Box>);
+        }
     }, [winningTeam]);
 
     return (
@@ -28,25 +30,20 @@ const GameWon = ({ resetGame, winningTeam }) => {
                 height={height}
             />
             
-            <Box className={"gameWonContainer"}>
-                <Box className={"gameWonText"}>
+            <Box className={"endScreenContainer"}>
+                <Box className={"gameEndText"}>
                     WINNER!
                 </Box>
                 <Box className={"playAgainButtonContainer"}>
                     <Button 
                         variant="contained"
                         className={"startButton playAgainButton glossyButtons"}
-                        onClick={resetGame}
+                        onClick={() => resetGame("GAME_CHOICE")}
                     >
                         PLAY AGAIN
                     </Button>
                 </Box>
-                {
-                    winners && 
-                    <Box className={"winningTeamContainer"}>
-                        <Team roster={winners} changeSelectedPlayer={() => {}} />
-                    </Box>
-                }
+                {teamMarkup}
             </Box>
         </React.Fragment>
     );

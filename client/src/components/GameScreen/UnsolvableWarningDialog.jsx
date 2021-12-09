@@ -16,7 +16,7 @@ const UnsolvableWarningDialog = ({ open, closeDialog, resetGame }) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    {"It may be impossible to link these two players. However this check for linkable teammates is not perfect. If you think this pair of players is linkable and this dialog has shown, please tweet me about it "} <a className={"linkColor"} href="https://twitter.com/laneherby" target="_blank" rel="noreferrer">{"@laneherby"}</a>                    
+                    {"It may be impossible to link these two players. However, this check will often show for players who debuted in the current year. So if one of the players debuted in the current year the game probably will be solvable."}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

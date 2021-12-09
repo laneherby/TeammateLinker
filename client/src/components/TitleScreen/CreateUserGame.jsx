@@ -10,7 +10,9 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
 
     useEffect(() => {
         if(typeof(startPlayer) === "object" && typeof(endPlayer) === "object") {
-            setCanStartGame(true);
+            setTimeout(() => {
+                setCanStartGame(true);
+            }, 1200);
         }
         else {
             setCanStartGame(false);

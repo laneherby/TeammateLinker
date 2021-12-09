@@ -12,8 +12,12 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
     const [canStartGame, setCanStartGame] = useState(false);
 
     const checkNumber = (e) => {
-        if(!(/^[0-9]*$/).test(e.key)) {
+        if(e.keyCode === 8 || e.keyCode === 46 ||
+            e.keyCode === 37 || e.keyCode === 39) return;
+        
+        if(!(/^[0-9\s]*$/).test(e.key)) {
             e.preventDefault();
+            console.log(e.keyCode);
         }
     };
 

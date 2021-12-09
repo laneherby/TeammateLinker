@@ -4,6 +4,8 @@ import { ReactComponent as PlayerSilhouette } from '../../styles/assets/silhouet
 
 const PlayerCard = ({ playerName, playerImage }) => {
     const [cardRotate, setCardRotate] = useState("");
+    const [displayName, setDisplayName] = useState("");
+    const [displayImage, setDisplayImage] = useState("");
 
     useEffect(() => {
         if(playerName !== "" && playerImage !== "") {
@@ -12,6 +14,11 @@ const PlayerCard = ({ playerName, playerImage }) => {
             setTimeout(() => {
                 setCardRotate("rotateY(180deg)")
             }, 2000);
+
+            setTimeout(() => {
+                setDisplayImage(playerImage);
+                setDisplayName(playerName)
+            }, 1200);
         }
     }, [playerName, playerImage])
 
@@ -30,11 +37,11 @@ const PlayerCard = ({ playerName, playerImage }) => {
                 <Box className={"cardBack"}>
                     <img 
                         className={"playerImageCard"} 
-                        src={playerImage} 
-                        alt={playerName} 
+                        src={displayImage} 
+                        alt={displayName} 
                     />
                     <Box className={"playerNameCard"}>
-                        {playerName}
+                        {displayName}
                     </Box>
                 </Box>
             </Box>

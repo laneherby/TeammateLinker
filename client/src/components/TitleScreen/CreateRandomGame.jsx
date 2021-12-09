@@ -17,7 +17,6 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
         
         if(!(/^[0-9\s]*$/).test(e.key)) {
             e.preventDefault();
-            console.log(e.keyCode);
         }
     };
 

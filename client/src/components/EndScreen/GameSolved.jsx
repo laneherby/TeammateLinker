@@ -7,14 +7,15 @@ const GameSolved = ({ resetGame, solvedTeam }) => {
     const [teamMarkup, setTeamMarkup] = useState("");
 
     useEffect(() => {
-        console.log(solvedTeam);
         if(solvedTeam.length > 1 && solvedTeam[0].toString() !== "NO ANSWERS") {
+            const playerObjects = solvedTeam.map((p) => {return {"_id": `/${p.replace(" ", "")}.`, "name": p}});
+
             const roster = {
                 "_id": {
                     "team": "WIN",
                     "year": ""
                 },
-                "results": solvedTeam
+                "results": playerObjects
             };
 
             setTeamMarkup(<Box className={"winningTeamContainer"}><Team roster={roster} changeSelectedPlayer={() => {}} /></Box>);

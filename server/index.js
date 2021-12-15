@@ -1,7 +1,8 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
 const MongoConnection = require('./mongo');
-const { spawn } = require('child_process')
+const { spawn } = require('child_process');
+const sanitize = require("mongo-sanitize");
 
 const app = new Koa();
 const router = KoaRouter();
@@ -12,24 +13,24 @@ router.get("/api", (ctx, next) => {
 })
 
 router.get("/api/gettwoplayers", async (ctx, next) => {
-  const randomPlayers = await MongoConnection.getTwoRandomPlayers(ctx.query.startYear, ctx.query.endYear);
+  const randomPlayers = await MongoConnection.getTwoRandomPlayers(sanitize(ctx.query.startYear), sanitize(ctx.query.endYear));
   ctx.body = randomPlayers;
 })
 
 router.get("/api/getteammates/:playerID", async (ctx, next) => {
   //need to url encode the player url before sending here
-  const teammates = await MongoConnection.getPlayerTeammates(ctx.params.playerID);
+  const teammates = await MongoConnection.getPlayerTeammates(sanitize(ctx.params.playerID));
   ctx.body = teammates;
 });
 
 router.get("/api/search/:name", async (ctx, next) => {
-  const searchResult = await MongoConnection.searchPlayerNames(ctx.params.name);
+  const searchResult = await MongoConnection.searchPlayerNames(sanitize(ctx.params.name));
   ctx.body = searchResult;
 });
 
 router.get("/api/solve", async (ctx, next) => {  
   const runPy = new Promise((resolve, reject) => {
-    const pyProg = spawn("python3", ["/home/herby/app/TeammateLinkerGame/PythonScripts/SolveGame.py", ctx.query.startPlayer, ctx.query.endPlayer]);
+    const pyProg = spawn("python3", ["/home/herby/app/TeammateLinkerGame/PythonScripts/SolveGame.py", sanitize(ctx.query.startPlayer), sanitize(ctx.query.endPlayer)]);
     let playerList = [];
 
     pyProg.stdout.on("data", (data) => {

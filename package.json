@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
     "koa-router": "^10.1.1",
+    "mongo-sanitize": "^1.1.0",
     "mongodb": "^4.1.2",
     "nodemon": "^2.0.12"
   }

@@ -30,7 +30,7 @@ router.get("/api/search/:name", async (ctx, next) => {
 
 router.get("/api/solve", async (ctx, next) => {  
   const runPy = new Promise((resolve, reject) => {
-    const pyProg = spawn("python3", ["/home/herby/app/TeammateLinkerGame/PythonScripts/SolveGame.py", sanitize(ctx.query.startPlayer), sanitize(ctx.query.endPlayer)]);
+    const pyProg = spawn("python3", ["/home/herby/apps/TeammateLinker/PythonScripts/SolveGame.py", sanitize(ctx.query.startPlayer), sanitize(ctx.query.endPlayer)]);
     let playerList = [];
 
     pyProg.stdout.on("data", (data) => {

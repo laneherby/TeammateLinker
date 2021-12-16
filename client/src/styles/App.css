@@ -18,8 +18,25 @@
 
 .titleText {
     font-family: "KanitItalic";
-    font-size: 10em;
-    height: 25vh;
+    font-size: 9.5vw;
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 1025px) {
+    /* .titleText {
+        height: 45vh;
+    } */
+}
+
+@media only screen and (max-width: 768px) {
+    .titleText {
+        font-size: 9vw;
+        height: 25vh;
+    }
 }
 
 /***********************************************************************
@@ -36,7 +53,7 @@
 
 .gamesChoicesContainer {
     width: 100%;
-    height: 75vh;
+    height: 65vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -52,7 +69,7 @@
 }
 
 .gameChoiceContainer > span {
-    width: 20vw;
+    width: 40vw;
     text-align: center;
 }
 
@@ -69,7 +86,7 @@
 }
 
 .chooseGameButtons svg {
-    font-size: 10em;
+    font-size: 20vw;
     fill: black;
 }
 
@@ -91,6 +108,28 @@
 
 .toolTipText {
     font-size: 1.5em;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 769px) {
+    .chooseGameButtons {
+        width: 30vw;
+        height: 30vw;
+    }    
+}
+
+@media only screen and (max-width: 768px) {
+    .gamesChoicesContainer {
+        height: 75vh;
+        flex-direction: column;
+    }
+    .chooseGameButtons {
+        width: 30vw;
+        height: 30vw;
+    }  
+    .gameChoiceContainer > span {
+        width: 90vw;
+        text-align: center;
+    }
 }
 
 /***********************************************************************
@@ -201,12 +240,60 @@
     padding-bottom: 15px;
 }
 
+@media only screen and (max-width: 1200px) and (min-width: 1025px) {
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .paramsBorder {
+        min-width: 80vw;
+        width: 90vw;
+    }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 769px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+    .choicesContainer {
+        justify-content: space-evenly;
+    }
+
+    .paramsContainer {
+        flex-direction: column;
+    }
+
+    .paramsContainer > div {
+        padding: 1vh 0;
+    }
+
+    .paramsLabel {
+        padding: 0;
+    }
+
+    .paramsBorder {
+        margin: 0;
+    }
+    
+    .playerCardContainer {
+        padding-bottom: 5vh;
+    }
+
+}
+
 /***********************************************************************
         CREATE OWN GAME BY SEARCHING PLAYERS
 ***********************************************************************/
 
 .autocompleteBoxes {
     width: 40%;
+}
+
+@media only screen and (max-width: 768px) {
+    .autocompleteBoxes {
+        width: 80%;
+    }
 }
 
 /***********************************************************************
@@ -262,15 +349,31 @@
     background-image: linear-gradient(#0781b7, #2eb9f7);
 }
 
+@media only screen and (max-width: 1200px) and (min-width: 769px) {
+    .titleButtons {
+        width: 17vw;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .titleButtons {
+        width: 60vw;
+    }
+    .cardFront svg {
+        width: 40vw;
+        height: 200px;
+    }
+    .playerCard {
+        height: 200px;
+        width: 40vw;
+    }
+}
+
 /***********************************************************************
         FLIP CARDS FOR ROLLING PLAYERS
 ***********************************************************************/
 .flipCard {
     background-color: transparent;
-    height: auto;
-    width: auto;
-    max-width: 200px;
-    max-height: 400px;
     perspective: 1000px;
 }
 
@@ -309,6 +412,13 @@
 .playerNameCard {    
     font-family: "KanitItalic";
     font-size: 1em;
+}
+
+@media only screen and (max-width: 768px) {
+    .playerImageCard {
+        height: 200px;
+        width: 100%;
+    }
 }
 
 /***********************************************************************

@@ -81,6 +81,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                             onChange={(e) => {setStartYear(e.target.value)}}
                             inputProps={{ 
                                 maxLength: 4,
+                                type: "tel",
                                 onFocus: keyboardUp,
                                 onBlur: keyboardDown
                             }}                            
@@ -94,6 +95,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                             onChange={(e) => {setEndYear(e.target.value)}}
                             inputProps={{ 
                                 maxLength: 4,
+                                type: "tel",
                                 onFocus: keyboardUp,
                                 onBlur: keyboardDown
                             }}
@@ -120,6 +122,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                         className={"rollButton titleButtons glossyButtons"}
                         disabled={rollCooldown}
                         onClick={rollButtonClick}
+                        onMouseDown={rollButtonClick}
                     >
                         ROLL PLAYERS
                     </Button>

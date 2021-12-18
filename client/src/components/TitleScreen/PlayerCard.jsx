@@ -20,6 +20,9 @@ const PlayerCard = ({ playerName, playerImage }) => {
                 setDisplayName(playerName)
             }, 1200);
         }
+        else {
+            setCardRotate("rotateY(-180deg");
+        }
     }, [playerName, playerImage])
 
     return (

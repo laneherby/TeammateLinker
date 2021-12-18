@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import PlayerCard from './PlayerCard';
 import Title from './Title';
 import GoBackArrow from './GoBackArrow';
 
-const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, goBack }) => {
+const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, goBack, isMobile }) => {
     const currYear = new Date().getFullYear();
+    const cardContainer = useRef();
     const [startYear, setStartYear] = useState(2010);    
     const [endYear, setEndYear] = useState(currYear);
     const [rollCooldown, setRollCooldown] = useState(false);
@@ -24,6 +25,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
         let paramStartYear = startYear;
         let paramEndYear = endYear;
         setRollCooldown(true);
+        cardContainer.current.style.display = "flex";
         
         if(isNaN(startYear) || parseInt(startYear) < 1900 || parseInt(startYear) > currYear) {
             paramStartYear = "1900";
@@ -47,7 +49,19 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
             setRollCooldown(false);
             if(!canStartGame) setCanStartGame(true);
         }, 2000);
-    }
+    };
+
+    const keyboardUp = () => {
+        if(isMobile) {
+            cardContainer.current.style.display = "none";            
+        }
+    };
+
+    const keyboardDown = () => {
+        if(isMobile) {
+            cardContainer.current.style.display = "flex";
+        }
+    };
 
     return (
         <Box className={"gameContainer"}>
@@ -61,22 +75,32 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                     <Box className={"paramsContainer"}>
                         <TextField
                             label="Start Year"
+                            className={"randomYearInput"}
                             value={startYear}
                             onKeyDown={checkNumber}
                             onChange={(e) => {setStartYear(e.target.value)}}
-                            inputProps={{ maxLength: 4 }}
+                            inputProps={{ 
+                                maxLength: 4,
+                                onFocus: keyboardUp,
+                                onBlur: keyboardDown
+                            }}                            
                         />
 
                         <TextField
                             label="End Year"
+                            className={"randomYearInput"}
                             value={endYear}
                             onKeyDown={checkNumber}
                             onChange={(e) => {setEndYear(e.target.value)}}
-                            inputProps={{ maxLength: 4 }}
+                            inputProps={{ 
+                                maxLength: 4,
+                                onFocus: keyboardUp,
+                                onBlur: keyboardDown
+                            }}
                         />
                     </Box>
                 </Box>
-                <Box className={"playerCardContainer"}>                
+                <Box className={"playerCardContainer"} ref={cardContainer}>
                     <Box className={"playerCard"}>
                         <PlayerCard
                             playerName={startPlayer.name ?? ""} 

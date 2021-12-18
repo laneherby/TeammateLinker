@@ -1,9 +1,10 @@
-import React,  { useState } from "react";
+import React,  { useState, useRef } from "react";
 import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 
-const PlayerAutocomplete = ({ label, autocSetPlayer }) => {
+const PlayerAutocomplete = ({ label, autocSetPlayer, keyboardUp, keyboardDown, isMobile }) => {
     const [searchResults, setSearchResults] = useState([]);
+    const autoCompInput = useRef();
 
     const getSearchResults = (e) => {
         if(e.target.value.length >= 3) {
@@ -21,6 +22,10 @@ const PlayerAutocomplete = ({ label, autocSetPlayer }) => {
     const playerSelected = (e, value) => {
         if(label === "Start Player") autocSetPlayer(value, "start");
         if(label === "End Player") autocSetPlayer(value, "end");
+        if(isMobile) {
+            autoCompInput.current.children[1].children[0].blur();
+            keyboardDown();
+        }
     };
 
     const checkLetters = (e) => {
@@ -47,6 +52,8 @@ const PlayerAutocomplete = ({ label, autocSetPlayer }) => {
             onKeyDown={checkLetters}
             onKeyUp={getSearchResults}
             onChange={playerSelected}
+            onFocus={keyboardUp}
+            onBlur={keyboardDown}
             options={searchResults}
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => {
@@ -64,6 +71,7 @@ const PlayerAutocomplete = ({ label, autocSetPlayer }) => {
                 <TextField
                     {...params}
                     label={label}
+                    ref={autoCompInput}
                     InputProps={{
                         ...params.InputProps,
                         type: "search",

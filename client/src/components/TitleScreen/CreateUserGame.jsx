@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Button } from '@mui/material';
 import Title from "./Title";
 import GoBackArrow from "./GoBackArrow";
 import PlayerAutocomplete from "./PlayerAutocomplete";
 import PlayerCard from "./PlayerCard";
 
-const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTheGame }) => {
+const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTheGame, isMobile }) => {
     const [canStartGame, setCanStartGame] = useState(false);
+    const cardContainer = useRef();
 
     useEffect(() => {
         if(typeof(startPlayer) === "object" && typeof(endPlayer) === "object") {
@@ -18,6 +19,18 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
             setCanStartGame(false);
         }
     }, [startPlayer, endPlayer]);
+
+    const keyboardUp = () => {
+        if(isMobile) {
+            cardContainer.current.style.display = "none";
+        }
+    };
+
+    const keyboardDown = () => {
+        if(isMobile) {
+            cardContainer.current.style.display = "flex";
+        }
+    };
 
     return (
         <Box className={"gameContainer"}>
@@ -32,14 +45,20 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
                         <PlayerAutocomplete 
                             label={"Start Player"}
                             autocSetPlayer={userSetPlayer}
+                            keyboardUp={keyboardUp}
+                            keyboardDown={keyboardDown}
+                            isMobile={isMobile}
                         />
                         <PlayerAutocomplete 
                             label={"End Player"}
                             autocSetPlayer={userSetPlayer}
+                            keyboardUp={keyboardUp}
+                            keyboardDown={keyboardDown}
+                            isMobile={isMobile}
                         />
                     </Box>
                 </Box>
-                <Box className={"playerCardContainer"}>                
+                <Box className={"playerCardContainer"} ref={cardContainer}>
                     <Box className={"playerCard"}>
                         <PlayerCard
                             playerName={startPlayer.name ?? ""} 

@@ -93,6 +93,7 @@ const App = () => {
           endPlayer={endPlayer}
           startTheGame={changeGameState}
           goBack={changeGameState}
+          isMobile={isMobile}
         />;
       case USER_GAME_SELECTED:
         return <CreateUserGame
@@ -101,6 +102,7 @@ const App = () => {
           userSetPlayer={userSetPlayer}
           startTheGame={changeGameState}
           goBack={changeGameState}
+          isMobile={isMobile}
         />;
       case GAME_STARTED:
         return <GameScreen 
@@ -122,7 +124,8 @@ const App = () => {
   return (
     <Container
       sx={{
-        minHeight:'100vh',        
+        minHeight:"100%",
+        height:"100%",
         maxWidth: "90vw!important",
       }}
     >

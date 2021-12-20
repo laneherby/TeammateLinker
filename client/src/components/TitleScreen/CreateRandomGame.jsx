@@ -131,6 +131,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                         className={"startButton titleButtons glossyButtons"}
                         disabled={!canStartGame}
                         onClick={() => startTheGame("GAME_STARTED")}
+                        onMouseDown={() => startTheGame("GAME_STARTED")}
                     >
                         START GAME
                     </Button>

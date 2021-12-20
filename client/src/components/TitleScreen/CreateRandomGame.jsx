@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import PlayerCard from './PlayerCard';
 import Title from './Title';
-import GoBackArrow from './GoBackArrow';
+import { GoBackArrow } from '../Icons';
 
 const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, goBack, isMobile }) => {
     const currYear = new Date().getFullYear();

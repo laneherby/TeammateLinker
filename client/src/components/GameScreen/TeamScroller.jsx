@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Box, LinearProgress } from '@mui/material';
 import axios from 'axios';
 import Team from './Team';
-import ScrollArrows from './ScrollArrows';
+import { ScrollArrows } from "../Icons";
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { teamData } from '../../data/teamData';
 

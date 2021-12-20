@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Button } from '@mui/material';
 import Title from "./Title";
-import GoBackArrow from "./GoBackArrow";
+import { GoBackArrow } from '../Icons';
 import PlayerAutocomplete from "./PlayerAutocomplete";
 import PlayerCard from "./PlayerCard";
 

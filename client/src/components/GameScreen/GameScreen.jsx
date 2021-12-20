@@ -3,11 +3,9 @@ import useArray from '../../hooks/useArray';
 import { Box } from '@mui/material';
 import TeamScroller from './TeamScroller';
 import SelectionHistory from './SelectionHistory';
-import PlayerAlreadySelectedDialog from './PlayerAlreadySelectedDialog';
-import AskSolveDialog from './AskSolveDialog';
+import { PlayerAlreadySelectedDialog, AskSolveDialog } from '../Dialogs';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
-import CloseGameIcon from './CloseGameIcon';
-import SolveGameIcon from './SolveGameIcon';
+import { CloseGameIcon, SolveGameIcon } from '../Icons';
 
 const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) => {
     const selectionHistory = useArray([]);

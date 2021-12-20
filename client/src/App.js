@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Container } from '@mui/material';
 import './styles/App.css';
+import { Container } from '@mui/material';
 import ChooseGame from './components/TitleScreen/ChooseGame';
 import CreateRandomGame from './components/TitleScreen/CreateRandomGame';
 import CreateUserGame from './components/TitleScreen/CreateUserGame';
 import GameScreen from './components/GameScreen/GameScreen';
 import GameWon from './components/EndScreen/GameWon';
 import GameSolved from './components/EndScreen/GameSolved';
-import UnsolvableWarningDialog from './components/GameScreen/UnsolvableWarningDialog';
+import { UnsolvableWarningDialog } from './components/Dialogs';
 import useMobileCheck from  './hooks/useMobileCheck';
 import axios from 'axios';
 

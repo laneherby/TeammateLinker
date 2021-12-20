@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import ScrollArrows from './ScrollArrows';
+import { ScrollArrows } from '../Icons';
 import { Box, List, ListItem, Tooltip } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 

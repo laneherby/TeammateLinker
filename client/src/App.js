@@ -41,8 +41,8 @@ const App = () => {
         setShowUnsolvableWarning(false);
         break;
       case GAME_STARTED:
-        const solvable = await isGameSolvable();
-        if(!solvable) setShowUnsolvableWarning(true);
+        // const solvable = await isGameSolvable();
+        // if(!solvable) setShowUnsolvableWarning(true);
         break;
       case GAME_WON:
         history.push(endPlayer);

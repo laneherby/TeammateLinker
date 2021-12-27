@@ -323,8 +323,8 @@
 
 .titleButtons {
     font-family: "KanitItalic" !important;
-    width: 10vw;
-    margin-top:15px !important;
+    width: 12vw;
+    margin-top: 15px !important;
 }
 
 /* Glass looking button? Not sure */
@@ -439,17 +439,18 @@
 .gameScreenContainer {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .gameScreenContainer > div {
-    margin: 1vh 0;
+    margin: 10px 0;
 }
 
 /***********************************************************************
         SELECTION DISPLAY
 ***********************************************************************/
 .selectionsContainer {
-    height: 25vh;
+    height: 25%;
     width: 100%;
     padding: 0 5px;
     display: flex;
@@ -479,6 +480,18 @@
     border: 1px solid black;
     border-radius: 9px;
 }
+
+/***********************************************************************
+        SELECTION HISTORY
+***********************************************************************/
+
+.statusContainer {
+    height: 8%;
+    min-height: 8%;
+    padding: 0 5px;
+    background-color: red;
+}
+
 
 /***********************************************************************
         SELECTION HISTORY
@@ -563,12 +576,13 @@
 ***********************************************************************/
 .teamScrollerContainer {
     position: relative;
+    height: 60%;
 }
 
 .teammatesContainer {
     display: flex;
     align-items: center;
-    height: 63vh; 
+    height: 100%;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -585,6 +599,7 @@
     padding: 5px;
     border-radius: 9px;
     margin: 0 5px;
+    overflow-y: auto;
 }
 
 .teamName {

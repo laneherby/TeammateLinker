@@ -52,7 +52,7 @@ const TeamScroller = ({ selectedPlayer, changeSelectedPlayer }) => {
             }
             {
                 teammatesLoaded &&
-                <Box>
+                <Box sx={{height: "100%"}}>
                     {
                         showArrows &&
                         <ScrollArrows 

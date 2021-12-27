@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ScrollArrows } from '../Icons';
-import { Box, List, ListItem, Tooltip } from '@mui/material';
+import { Box, FormControl, InputLabel, List, ListItem, Select, Tooltip } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 
 const SelectionHistory = ({ history, handleHistoryClick }) => {
@@ -13,20 +13,33 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
         setShowArrows((history.length > 5) ? true : false);
     }, [history]);
 
+    const renderHistorySelection = () => {
+
+    };
+
     return (
         <Box className={"historyContainer"}>
             {
-                showArrows &&
-                <ScrollArrows 
-                    scrollRef={historyRef} 
-                    chevWidth={"5vh"} 
-                    chevHeight={"5vh"}
-                    chevClassLeft={"histChevronLeft"}
-                    chevClassRight={"histChevronRight"}
-                />
+                // showArrows &&
+                // <ScrollArrows 
+                //     scrollRef={historyRef} 
+                //     chevWidth={"5vh"} 
+                //     chevHeight={"5vh"}
+                //     chevClassLeft={"histChevronLeft"}
+                //     chevClassRight={"histChevronRight"}
+                // />
             }
             <Box className={"historyScrollerContainer"}>
-                <Box className={"historyTitle unselectableText"}>
+                <FormControl>
+                    <InputLabel>History</InputLabel>
+                    <Select
+                        displayEmpty
+                        
+                    >
+
+                    </Select>
+                </FormControl>
+                {/* <Box className={"historyTitle unselectableText"}>
                     History <Tooltip
                             sx={{padding: "3px", marginLeft: "3px"}}
                             title={<span className={"toolTipText"}>This shows your past selections. If you click one of the player names it will take you back to that spot.</span>}
@@ -56,7 +69,7 @@ const SelectionHistory = ({ history, handleHistoryClick }) => {
                             })}
                         </List>
                     }
-                </Box>
+                </Box> */}
             </Box>
         </Box>
     )

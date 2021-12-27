@@ -3,6 +3,7 @@ import useArray from '../../hooks/useArray';
 import { Box } from '@mui/material';
 import TeamScroller from './TeamScroller';
 import SelectionHistory from './SelectionHistory';
+import StatusDisplay from './StatusDisplay';
 import { PlayerAlreadySelectedDialog, AskSolveDialog } from '../Dialogs';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
 import { CloseGameIcon, SolveGameIcon } from '../Icons';
@@ -74,10 +75,11 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
                 startPlayer={startPlayer}
                 endPlayer={endPlayer}
             />
-            <SelectionHistory 
+            {/* <SelectionHistory 
                 history={selectionHistory.value} 
                 handleHistoryClick={goBackInHistoryToPlayer} 
-            />
+            /> */}
+            <StatusDisplay />
             <TeamScroller 
                 selectedPlayer={selectedPlayer} 
                 changeSelectedPlayer={changeSelectedPlayer} 

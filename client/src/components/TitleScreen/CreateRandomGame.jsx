@@ -75,7 +75,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                     <Box className={"paramsContainer"}>
                         <TextField
                             label="Start Year"
-                            className={"randomYearInput"}
+                            className={"randomYearInput gameTextFields"}
                             value={startYear}
                             onKeyDown={checkNumber}
                             onChange={(e) => {setStartYear(e.target.value)}}
@@ -89,7 +89,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
 
                         <TextField
                             label="End Year"
-                            className={"randomYearInput"}
+                            className={"randomYearInput gameTextFields"}
                             value={endYear}
                             onKeyDown={checkNumber}
                             onChange={(e) => {setEndYear(e.target.value)}}

@@ -71,6 +71,7 @@ const PlayerAutocomplete = ({ label, autocSetPlayer, keyboardUp, keyboardDown, i
                 <TextField
                     {...params}
                     label={label}
+                    className={"gameTextFields"}
                     ref={autoCompInput}
                     InputProps={{
                         ...params.InputProps,

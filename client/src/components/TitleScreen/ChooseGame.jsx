@@ -4,8 +4,10 @@ import { Box, Tooltip, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import HelpIcon from '@mui/icons-material/Help';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import useStopwatch from '../../hooks/useStopwatch';
 
 const ChooseGame =({ setGameType }) => {
+    const { time, startTimer, stopTimer } = useStopwatch();
     
     const handleRandomClick = () => {
         setGameType("RANDOM_GAME_SELECTED");

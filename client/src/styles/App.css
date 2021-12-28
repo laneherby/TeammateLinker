@@ -486,14 +486,33 @@
 }
 
 /***********************************************************************
-        SELECTION HISTORY
+        STATUS DISPLAY
 ***********************************************************************/
 
 .statusContainer {
     height: 8%;
     min-height: 8%;
     padding: 0 5px;
-    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statusBox {
+    width: 30%;
+    height: 100%;
+    background-color: green;
+}
+
+.stopwatchContainer {
+    font-family: "KanitItalic";
+    display: flex;
+    align-items: center;
+    font-size: 3em;
+}
+
+.stopwatchContainer span {
+    text-align: left;
 }
 
 

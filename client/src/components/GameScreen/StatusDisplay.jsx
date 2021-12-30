@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Box, FormControl, InputLabel, Select, Tooltip } from '@mui/material';
+import React, { useEffect, useRef } from "react";
+import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import useStopwatch from "../../hooks/useStopwatch";
 
-const StatusDisplay = () => {
+const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
     const { time, startTimer, stopTimer } = useStopwatch();
     const sWatchContainer = useRef(null);
 
     useEffect(() => {
         startTimer();
-    }, []);
+        // eslint-disable-next-line
+    },[]);
 
     useEffect(() => {
 
@@ -18,12 +19,10 @@ const StatusDisplay = () => {
             const stopwatchWidth = Math.ceil(sWatchContainer.current.firstChild.getBoundingClientRect().width - 5);
             const containerWidth = Math.ceil(sWatchContainer.current.getBoundingClientRect().width);
             const emptySpace = containerWidth - stopwatchWidth;
-            console.log(containerWidth, stopwatchWidth, (emptySpace/2));
 
             //take half of the empty space left and make it the left margin of the stopwatch span
             sWatchContainer.current.firstChild.style.marginLeft = `${emptySpace / 2}px`;
-        }, 100);
-
+        }, 100);        
     }, [sWatchContainer]);
 
     return (
@@ -34,10 +33,36 @@ const StatusDisplay = () => {
                 </span>
             </Box>
             <Box className={"historySelectContainer statusBox"}>
-                
+                <FormControl sx={{width: "80%"}}>
+                    <InputLabel 
+                        id="historySelectLabelID"
+                        sx={{fontFamily: "KanitItalic !important"}}
+                    >
+                        History
+                    </InputLabel>
+                    <Select
+                        labelId="historySelectLabelID"
+                        label="History"
+                        onChange={(e) => handleHistoryClick(e.target.value)}
+                        value={""}
+                    >
+                        {history.slice(0).reverse().map((player) => {
+                            return (
+                                <MenuItem
+                                    data-player-id={player._id}
+                                    key={player._id.substring(player._id.lastIndexOf("/")+1, player._id.lastIndexOf("."))}
+                                    value={player._id}
+                                    sx={{fontFamily: "KanitItalic !important"}}
+                                >
+                                    {player.name}
+                                </MenuItem>
+                            );
+                        })}
+                    </Select>
+                </FormControl>
             </Box>
             <Box className={"moveCountContainer statusBox"}>
-                
+                No. of Moves: {numMoves}
             </Box>
         </Box>
     );

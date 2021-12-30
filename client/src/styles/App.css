@@ -501,7 +501,6 @@
 .statusBox {
     width: 30%;
     height: 100%;
-    background-color: green;
 }
 
 .stopwatchContainer {
@@ -515,83 +514,22 @@
     text-align: left;
 }
 
-
-/***********************************************************************
-        SELECTION HISTORY
-***********************************************************************/
-
-.historyContainer {
-    padding: 0 5px;
-    position: relative;
-}
-
-.historyScrollerContainer {
-    height: 5vh;
-    background-color: #454545;
-    font-family: "KanitItalic";
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border: 5px solid #1d1d1d;    
-    border-radius: 9px;
-}
-
-.historyTitle {
-    width: 10%;
-    height: 100%;
-    min-width: 75px;
+.historySelectContainer {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    border-right: 5px solid #1d1d1d;
-    text-shadow: black 0px 0px 20px;
 }
 
-.historyListContainer {
-    width: 90%;
-    height: 100%;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+.selectFont {
+    font-family: "KanitItalic" !important;
 }
 
-.historyListContainer::-webkit-scrollbar {
-    display: none;
-}
-
-.historyList {    
+.moveCountContainer {
+    font-family: "KanitItalic" !important;
+    font-size: 3em;
     display: flex;
-    flex-direction: row;
-    height: 100%;
-    padding: 0 !important;
-    white-space: nowrap;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    cursor: pointer;
-}
-
-.historyList li:last-child {
-    border-right: 0 !important;
-}
-
-.historyItem {
-    border-right: 5px solid #1d1d1d;
-    min-width: calc(100%/5);
-    padding: 0 8px !important;
-    justify-content: center !important;
-    text-align: center !important;
-    text-shadow: black 0px 0px 20px;
-}
-
-.histChevronLeft {    
-    left: -60px;
-}
-
-.histChevronRight {
-    right: -60px;
+    align-items: center;
+    justify-content: center;
 }
 
 /***********************************************************************

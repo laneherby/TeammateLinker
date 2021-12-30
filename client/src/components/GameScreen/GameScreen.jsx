@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import useArray from '../../hooks/useArray';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import TeamScroller from './TeamScroller';
-import SelectionHistory from './SelectionHistory';
 import StatusDisplay from './StatusDisplay';
 import { PlayerAlreadySelectedDialog, AskSolveDialog } from '../Dialogs';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
 import { CloseGameIcon, SolveGameIcon } from '../Icons';
 
-const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) => {
+const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isMobile }) => {
     const selectionHistory = useArray([]);
+    const [numMoves, setNumMoves] = useState(0);
     const [selectedPlayer, setSelectedPlayer] = useState(startPlayer);
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
     const [errorPlayerName, setErrorPlayerName] = useState("");
@@ -22,6 +22,8 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
         if(selectedPlayer._id !== player._id && !selectionHistory.value.some(playerInHistory)) {
             selectionHistory.push(selectedPlayer);
             setSelectedPlayer(player);   
+
+            setNumMoves(numMoves + 1);
         }
         else {
             setErrorPlayerName(player.name);
@@ -35,6 +37,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
         copyHistory.length = indexOfSelected;
         setSelectedPlayer(selectionHistory.value[indexOfSelected]);
         selectionHistory.setValue(copyHistory);
+        setNumMoves(numMoves + 1);
     };
 
     const closeAlreadySelectedDialog = () => {
@@ -75,11 +78,11 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame }) =
                 startPlayer={startPlayer}
                 endPlayer={endPlayer}
             />
-            {/* <SelectionHistory 
-                history={selectionHistory.value} 
-                handleHistoryClick={goBackInHistoryToPlayer} 
-            /> */}
-            <StatusDisplay />
+            <StatusDisplay 
+                history={selectionHistory.value}
+                handleHistoryClick={goBackInHistoryToPlayer}
+                numMoves={numMoves}
+            />
             <TeamScroller 
                 selectedPlayer={selectedPlayer} 
                 changeSelectedPlayer={changeSelectedPlayer} 

@@ -111,6 +111,7 @@ const App = () => {
           winGame={changeGameState}
           resetGame={changeGameState}
           solveGame={changeGameState}
+          isMobile={isMobile}
         />;
       case GAME_WON:
         return <GameWon resetGame={changeGameState} winningTeam={winningTeam} />;

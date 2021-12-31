@@ -33,7 +33,7 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
                 </span>
             </Box>
             <Box className={"historySelectContainer statusBox"}>
-                <FormControl sx={{width: "80%"}}>
+                <FormControl sx={{width: "100%"}}>
                     <InputLabel 
                         id="historySelectLabelID"
                         sx={{fontFamily: "KanitItalic !important"}}
@@ -62,7 +62,7 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
                 </FormControl>
             </Box>
             <Box className={"moveCountContainer statusBox"}>
-                No. of Moves: {numMoves}
+                Moves: {numMoves}
             </Box>
         </Box>
     );

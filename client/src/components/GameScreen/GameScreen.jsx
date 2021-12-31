@@ -77,6 +77,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
                 currPlayer={selectedPlayer} 
                 startPlayer={startPlayer}
                 endPlayer={endPlayer}
+                isMobile={isMobile}
             />
             <StatusDisplay 
                 history={selectionHistory.value}

@@ -123,13 +123,7 @@ const App = () => {
   };
 
   return (
-    <Container
-      sx={{
-        minHeight:"100%",
-        height:"100%",
-        maxWidth: "90vw!important",
-      }}
-    >
+    <Container className={"appContainer"}>
       <UnsolvableWarningDialog
         open={showUnsolvableWarning}
         resetGame={changeGameState}

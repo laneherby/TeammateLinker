@@ -1,4 +1,20 @@
 /***********************************************************************
+        APP CONTAINER
+***********************************************************************/
+
+.appContainer {
+    min-height: 100%;
+    height: 100%;
+    max-width: 90vw !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .appContainer {
+        max-width: 100% !important;
+    }
+}
+
+/***********************************************************************
         UNSELECTABLE TEXT
 ***********************************************************************/
 .unselectableText {
@@ -181,6 +197,12 @@
     fill: #FDFEFF;
 }
 
+@media only screen and (max-width: 768px) {
+    .closeGameContainer svg {
+        font-size: 3em;
+    }
+}
+
 /***********************************************************************
         SOLVE GAME ICON
 ***********************************************************************/
@@ -200,6 +222,12 @@
 
 .solveGameContainer:hover svg {
     fill: #FDFEFF;
+}
+
+@media only screen and (max-width: 768px) {
+    .solveGameContainer svg {
+        font-size: 3em;
+    }
 }
 
 /***********************************************************************
@@ -486,6 +514,36 @@
 }
 
 /***********************************************************************
+        MOBILE SELECTION DISPLAY
+***********************************************************************/
+
+.mobileSelectionsContainer {
+    height: 20%;
+    width: 100%;
+    padding: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "KanitItalic";
+}
+/* Make this a table not flex */
+.tablePlayerContainer {
+    display: table;
+}
+
+.mobilePlayersChild {
+    display: table-row;
+}
+
+.mobilePlayersChild span {
+    display: table-cell;
+    padding: 5px 10px;
+    border-bottom: #989898 1px solid;
+    font-size: 1.2em;
+}
+
+/***********************************************************************
         STATUS DISPLAY
 ***********************************************************************/
 
@@ -531,6 +589,32 @@
     align-items: center;
     justify-content: center;
 }
+
+@media only screen and (max-width: 840px) and (min-width: 769px) {
+    .stopwatchContainer {
+        font-size: 2.5em;
+    }
+
+    .moveCountContainer {
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .stopwatchContainer {
+        font-size: 1.5em;
+    }
+
+    .moveCountContainer {
+        font-size: 1.5em;
+    }
+}
+
+/***********************************************************************
+        MOBILE STATUS DISPLAY
+***********************************************************************/
+
+
 
 /***********************************************************************
         TEAM SCROLLER AND TEAM LISTS

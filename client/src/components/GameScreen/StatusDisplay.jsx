@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import useStopwatch from "../../hooks/useStopwatch";
 
 const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile }) => {
     const { time, startTimer, stopTimer } = useStopwatch();
-    const [selectOpen, setSelectOpen] = useState(false);
     const sWatchContainer = useRef(null);
 
     useEffect(() => {
@@ -84,7 +83,6 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile }) => {
                         onChange={(e) => handleOnChange(e)}                        
                         value={""}
                         sx={{fontFamily: "KanitItalic !important"}}
-                        open={false}
                     >                        
                         {renderOptions()}
                     </Select>

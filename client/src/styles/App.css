@@ -683,7 +683,7 @@
     }
 
     .historySelectContainer {
-        width: 100%
+        width: calc(100% - 10px)
     }
 
     .statusContainer {
@@ -862,6 +862,32 @@
     }
 }
 
+@media only screen and (max-width: 768px) {
+    .teamScrollerContainer {
+        height: 63%;
+    }
+
+    .teamContainer {
+        min-width: calc(95% - 10px);
+    }
+
+    .teamName {
+        height: 20%;
+    }
+
+    .teamName span {
+        font-size: 2.5em;
+    }
+
+    .teammateList {
+        height: 80%;
+    }
+}
+
+.mobileSwipeText {
+    font-family: "KanitItalic";
+    text-align: center;    
+}
 
 /***********************************************************************
         GAME WON SCREEN OR GAME SOLVED SCREEN

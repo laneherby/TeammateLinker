@@ -7,7 +7,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { teamData } from '../../data/teamData';
 
 
-const TeamScroller = ({ selectedPlayer, changeSelectedPlayer }) => {
+const TeamScroller = ({ selectedPlayer, changeSelectedPlayer, isMobile }) => {
     const tmmateContainer = useRef();
     const [teammates, setTeammates] = useState([]);
     const [teammatesLoaded, setTeammatesLoaded] = useState(false);
@@ -33,7 +33,7 @@ const TeamScroller = ({ selectedPlayer, changeSelectedPlayer }) => {
     }, [selectedPlayer]);
 
     useEffect(() => {
-        if((wWidth > 1330 && teammates.length <= 4) || (wWidth > 768 && teammates.length <=3)) {
+        if((wWidth > 1330 && teammates.length <= 4) || (wWidth > 768 && teammates.length <=3) || (wWidth < 768)) {
             setShowArrows(false);
         }
         else {
@@ -49,6 +49,13 @@ const TeamScroller = ({ selectedPlayer, changeSelectedPlayer }) => {
                     <span className={"loadingTmText"}>LOADING TEAMMATES...</span>
                     <LinearProgress sx={{width: "100%"}} />
                 </Box>
+            }
+            {
+                // isMobile &&
+                // teammatesLoaded &&
+                // <Box className="mobileSwipeText">
+                //     swipe for more teams
+                // </Box>
             }
             {
                 teammatesLoaded &&

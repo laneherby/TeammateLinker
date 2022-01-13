@@ -34,11 +34,13 @@ const Team = ({ roster, changeSelectedPlayer }) => {
             teamName = `'${roster._id.year.toString().substring(2)} ${teamData[roster._id.team].name}`
         }
 
-        return <Box className={"teamName"} sx={teamStyles.sxTeamName}>
-                    <span className={"unselectableText"} title={`${teamYear}${teamLoc}${teamData[roster._id.team].name}`}>
-                        {teamName}
-                    </span>
-                </Box>
+        return (
+            <Box className={"teamName"} sx={teamStyles.sxTeamName}>
+                <span className={"unselectableText"} title={`${teamYear}${teamLoc}${teamData[roster._id.team].name}`}>
+                    {teamName}
+                </span>
+            </Box>
+        );
     };
 
     return (

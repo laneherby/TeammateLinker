@@ -87,7 +87,8 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
             />
             <TeamScroller 
                 selectedPlayer={selectedPlayer} 
-                changeSelectedPlayer={changeSelectedPlayer} 
+                changeSelectedPlayer={changeSelectedPlayer}
+                isMobile={isMobile}
             />
         </Box>
     );

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import useStopwatch from "../../hooks/useStopwatch";
 
-const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
+const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile }) => {
     const { time, startTimer, stopTimer } = useStopwatch();
+    const [selectOpen, setSelectOpen] = useState(false);
     const sWatchContainer = useRef(null);
 
     useEffect(() => {
@@ -25,15 +26,52 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
         }, 100);        
     }, [sWatchContainer]);
 
-    return (
-        <Box className={"statusContainer"}>
+    const handleOnChange = (e) => {
+        handleHistoryClick(e.target.value);
+    };
+
+    const renderStopwatch = () => {
+        return (
             <Box className={"stopwatchContainer statusBox"} ref={sWatchContainer}>
                 <span>
                     {time.minutes}:{time.seconds}:{time.ms}
                 </span>
             </Box>
+        );
+    };
+
+    const renderMoves = () => {
+        return (
+            <Box className={"moveCountContainer statusBox"}>
+                Moves: {numMoves}
+            </Box>
+        );
+    };
+
+    const renderOptions = () => {
+        return (
+            history.slice(0).reverse().map((player) => {
+                return (
+                    <MenuItem
+                        data-player-id={player._id}
+                        key={player._id.substring(player._id.lastIndexOf("/")+1, player._id.lastIndexOf("."))}
+                        value={player._id}
+                        sx={{fontFamily: "KanitItalic !important"}}
+                    >
+                        {player.name}
+                    </MenuItem>
+                );
+            })
+        );
+    };
+
+    const renderSelect = () => {
+        return (
             <Box className={"historySelectContainer statusBox"}>
-                <FormControl sx={{width: "100%"}}>
+                <FormControl 
+                    sx={{width: "100%"}} 
+                    size={(isMobile) ? "small" : "medium"}
+                >
                     <InputLabel 
                         id="historySelectLabelID"
                         sx={{fontFamily: "KanitItalic !important"}}
@@ -43,28 +81,45 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves }) => {
                     <Select
                         labelId="historySelectLabelID"
                         label="History"
-                        onChange={(e) => handleHistoryClick(e.target.value)}
+                        onChange={(e) => handleOnChange(e)}                        
                         value={""}
-                    >
-                        {history.slice(0).reverse().map((player) => {
-                            return (
-                                <MenuItem
-                                    data-player-id={player._id}
-                                    key={player._id.substring(player._id.lastIndexOf("/")+1, player._id.lastIndexOf("."))}
-                                    value={player._id}
-                                    sx={{fontFamily: "KanitItalic !important"}}
-                                >
-                                    {player.name}
-                                </MenuItem>
-                            );
-                        })}
+                        sx={{fontFamily: "KanitItalic !important"}}
+                        open={false}
+                    >                        
+                        {renderOptions()}
                     </Select>
                 </FormControl>
             </Box>
-            <Box className={"moveCountContainer statusBox"}>
-                Moves: {numMoves}
-            </Box>
-        </Box>
+        );
+    };
+
+    const renderStatuses = () => {
+        if(isMobile) {
+            return (
+                <Box className={"statusContainer"}>
+                    <Box className={"movesMobileContainer"}>
+                        {renderMoves()}
+                        {renderStopwatch()}
+                    </Box>
+                    <Box className={"historyMobileContainer"}>
+                        {renderSelect()}
+                    </Box>
+                </Box>
+            );
+        }
+        else {
+            return (
+                <Box className={"statusContainer"}>
+                    {renderStopwatch()}
+                    {renderSelect()}
+                    {renderMoves()}
+                </Box>
+            );
+        }
+    };
+
+    return (
+        renderStatuses()
     );
 };
 

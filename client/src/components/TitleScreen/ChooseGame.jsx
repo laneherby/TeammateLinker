@@ -54,6 +54,12 @@ const ChooseGame =({ setGameType }) => {
                     </IconButton>
                 </Box>
             </Box>
+            {/* <Box>
+                width: {window.innerWidth} <br />
+                height: {window.innerHeight} <br />
+                availWidth: {window.screen.availWidth} <br />
+                availHeight: {window.screen.availHeight}
+            </Box> */}
         </Box>
     );
 }

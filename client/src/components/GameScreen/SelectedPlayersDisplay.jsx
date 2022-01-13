@@ -7,10 +7,10 @@ const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }
     const renderDisplay = () => {
         if(isMobile) {
             return <Box className={"mobileSelectionsContainer"}>
-                <Box class={"tablePlayerContainer"}>
+                <Box className={"tablePlayerContainer"}>
                     <Box className={"mobilePlayersChild"}>
                         <span>
-                            Start Player:
+                            Start:
                         </span> 
                         <span>
                             {startPlayer.name}
@@ -18,7 +18,7 @@ const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }
                     </Box>
                     <Box className={"mobilePlayersChild"}>
                         <span>
-                            Selected Player:
+                            Selected:
                         </span> 
                         <span>
                             {currPlayer.name}
@@ -26,7 +26,7 @@ const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }
                     </Box>
                     <Box className={"mobilePlayersChild"}>
                         <span>
-                            End Player:
+                            End:
                         </span> 
                         <span>
                             {endPlayer.name}

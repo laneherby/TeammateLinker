@@ -83,6 +83,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
                 history={selectionHistory.value}
                 handleHistoryClick={goBackInHistoryToPlayer}
                 numMoves={numMoves}
+                isMobile={isMobile}
             />
             <TeamScroller 
                 selectedPlayer={selectedPlayer} 

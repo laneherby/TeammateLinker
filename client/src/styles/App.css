@@ -14,6 +14,9 @@
     }
 }
 
+/* width 360, height 608, availWidth 360, availHeight 720  */
+/* need breakpoint for height probably like 670px */
+
 /***********************************************************************
         UNSELECTABLE TEXT
 ***********************************************************************/
@@ -176,6 +179,12 @@
     }
 }
 
+@media only screen and (max-width: 768px) and (max-height: 681px) {
+    .backArrowContainer svg {
+        font-size: 2.5em;
+    }
+}
+
 /***********************************************************************
         CLOSE GAME ICON
 ***********************************************************************/
@@ -203,6 +212,12 @@
     }
 }
 
+@media only screen and (max-width: 768px) and (max-height: 681px) {
+    .closeGameContainer svg {
+        font-size: 2.5em;
+    }
+}
+
 /***********************************************************************
         SOLVE GAME ICON
 ***********************************************************************/
@@ -227,6 +242,12 @@
 @media only screen and (max-width: 768px) {
     .solveGameContainer svg {
         font-size: 3em;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height: 681px) {
+    .solveGameContainer svg {
+        font-size: 2.5em;
     }
 }
 
@@ -413,6 +434,21 @@
     }
 }
 
+@media only screen and (max-width: 768px) and (max-height: 681px) {
+    .cardFront svg {
+        height: 150px;
+        width: 25vw;
+    }
+    .playerCard {
+        height: 150px;
+        width: 50%;
+    }
+
+    .playerCardContainer {
+        padding-top: 6px;
+    }
+}
+
 /***********************************************************************
         FLIP CARDS FOR ROLLING PLAYERS
 ***********************************************************************/
@@ -465,6 +501,13 @@
     }
 }
 
+@media only screen and (max-width: 768px) and (max-height: 681px) {
+    .playerImageCard {
+        height: 150px;
+        width: 25vw;
+    }
+}
+
 /***********************************************************************
         GAME SCREEN CONTAINER
 ***********************************************************************/
@@ -476,6 +519,13 @@
 
 .gameScreenContainer > div {
     margin: 10px 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .gameScreenContainer > div {
+        margin: 0;
+        padding: 5px 0;
+    }
 }
 
 /***********************************************************************
@@ -530,6 +580,7 @@
 /* Make this a table not flex */
 .tablePlayerContainer {
     display: table;
+    width: 90%;
 }
 
 .mobilePlayersChild {
@@ -541,6 +592,24 @@
     padding: 5px 10px;
     border-bottom: #989898 1px solid;
     font-size: 1.2em;
+}
+
+.mobilePlayersChild span:nth-child(2) {
+    text-align: right;
+}
+
+@media only screen and (max-width: 800px) {
+    .mobilePlayersChild span {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 768px) and (max-height: 680px) {
+    .mobilePlayersChild span {
+        display: table-cell;
+        padding: 5px 10px;
+        border-bottom: #989898 1px solid;
+    }
 }
 
 /***********************************************************************
@@ -602,11 +671,25 @@
 
 @media only screen and (max-width: 768px) {
     .stopwatchContainer {
-        font-size: 1.5em;
+        font-size: 1.75em;
     }
 
     .moveCountContainer {
-        font-size: 1.5em;
+        font-size: 1.75em;
+    }
+
+    .statusBox {
+        width: 100%;
+    }
+
+    .historySelectContainer {
+        width: 100%
+    }
+
+    .statusContainer {
+        flex-direction: column;
+        height: 17%;
+        min-height: 17%;
     }
 }
 
@@ -614,7 +697,19 @@
         MOBILE STATUS DISPLAY
 ***********************************************************************/
 
+.movesMobileContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
 
+.historyMobileContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /***********************************************************************
         TEAM SCROLLER AND TEAM LISTS

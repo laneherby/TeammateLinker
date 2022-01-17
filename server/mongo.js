@@ -1,14 +1,16 @@
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 let client;
+let db;
 let collection;
 
 const init = async () => {
     const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_URI}`;
     client = new MongoClient(uri);
-    const connection = await client.connect();
-    collection = connection.db("BaseballTeammates").collection("Players");
+    connection = await client.connect();
+    db = connection.db("BaseballTeammates");
+    collection = db.collection("Players");
 };
 
 const isConnected = () => {
@@ -170,11 +172,45 @@ const searchPlayerNames = async (playerName) => {
   }
   
   return searchResults;
-}
+};
+
+const checkHighScore = async (playerOne, playerTwo) => {
+  let highScores = db.collection("HighScores");
+  // let scoreResult = await highScores.findOne({
+  //       players:
+  //         {
+  //           $size: 2,
+  //             $all: [
+  //               playerOne, playerTwo
+  //             ]
+  //         }
+  //     }, (err, data) => {
+  //       if(err) console.log(err);
+  //       console.log(data)
+  //       return data;
+  //     });
+
+  // return scoreResult;
+
+  return new Promise((resolve, reject) => {
+    highScores.findOne({
+      players:
+        {
+          $size: 2,
+            $all: [
+              playerOne, playerTwo
+            ]
+        }
+    }, (err, data) => {
+      err ? reject(err) : resolve(data)
+    })
+  });
+};
 
 module.exports = {
     init,
     getTwoRandomPlayers,
     getPlayerTeammates,
-    searchPlayerNames
+    searchPlayerNames,
+    checkHighScore
 }

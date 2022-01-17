@@ -51,6 +51,13 @@ router.get("/api/solve", async (ctx, next) => {
   ctx.body = await runPy;
 });
 
+router.get("/api/checkhighscore", async (ctx, next) => {
+  let highScoreResp =  await MongoConnection.checkHighScore(ctx.query.playerOne, ctx.query.playerTwo);
+  console.log(highScoreResp);
+  highScoreResp = (highScoreResp === null) ? "no_scores" : highScoreResp;
+  ctx.body = highScoreResp;
+});
+
 app
   .use(router.routes())
   .listen(3001, () => {

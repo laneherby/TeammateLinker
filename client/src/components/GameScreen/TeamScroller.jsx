@@ -51,13 +51,6 @@ const TeamScroller = ({ selectedPlayer, changeSelectedPlayer, isMobile }) => {
                 </Box>
             }
             {
-                // isMobile &&
-                // teammatesLoaded &&
-                // <Box className="mobileSwipeText">
-                //     swipe for more teams
-                // </Box>
-            }
-            {
                 teammatesLoaded &&
                 <Box sx={{height: "100%"}}>
                     {

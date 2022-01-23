@@ -175,22 +175,7 @@ const searchPlayerNames = async (playerName) => {
 };
 
 const checkHighScore = async (playerOne, playerTwo) => {
-  let highScores = db.collection("HighScores");
-  // let scoreResult = await highScores.findOne({
-  //       players:
-  //         {
-  //           $size: 2,
-  //             $all: [
-  //               playerOne, playerTwo
-  //             ]
-  //         }
-  //     }, (err, data) => {
-  //       if(err) console.log(err);
-  //       console.log(data)
-  //       return data;
-  //     });
-
-  // return scoreResult;
+  const highScores = db.collection("HighScores");
 
   return new Promise((resolve, reject) => {
     highScores.findOne({
@@ -207,10 +192,52 @@ const checkHighScore = async (playerOne, playerTwo) => {
   });
 };
 
+const updateHighScore = async (scoreData) => {
+  // scoreData = {
+  //   players: [array of two players],
+  //   seconds: time,
+  //   moves: numMoves,
+  //   timeLeader: nickname for timeleader,
+  //   movesLeader: nickname for moves leader
+  // }
+
+  const highScores = db.collection("HighScores");
+
+  const filter = { 
+    players: {
+      $size: 2,
+      $all: [
+        { $elemMatch: {$eq: scoreData.players[0]} },
+        { $elemMatch: {$eq: scoreData.players[1]} }
+      ]
+    }
+  };
+
+  const updateDoc = {
+    $set: {
+      players: scoreData.players,
+      seconds: scoreData.seconds,
+      moves: scoreData.moves,
+      timeLeader: scoreData.timeLeader,
+      movesLeader: scoreData.movesLeader
+    }
+  };
+
+  const updateResult = await highScores.updateOne(filter, updateDoc, {upsert: true});
+  return updateResult;
+};
+
+const getAllScores = async (scoreData) => {
+  const highScores = db.collection("HighScores");
+  return highScores.find({}).toArray();
+};
+
 module.exports = {
     init,
     getTwoRandomPlayers,
     getPlayerTeammates,
     searchPlayerNames,
-    checkHighScore
+    checkHighScore,
+    updateHighScore,
+    getAllScores
 }

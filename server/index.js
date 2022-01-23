@@ -1,12 +1,12 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
+const koaBody = require('koa-body');
 const MongoConnection = require('./mongo');
 const { spawn } = require('child_process');
 const sanitize = require("mongo-sanitize");
 
 const app = new Koa();
 const router = KoaRouter();
-
 
 router.get("/api", (ctx, next) => {
     ctx.body = {"message": "I'm here"};
@@ -56,6 +56,17 @@ router.get("/api/checkhighscore", async (ctx, next) => {
   console.log(highScoreResp);
   highScoreResp = (highScoreResp === null) ? "no_scores" : highScoreResp;
   ctx.body = highScoreResp;
+});
+
+router.post("/api/updatescore", koaBody(), async (ctx, next) => {
+  console.log(ctx.request.body);
+  const updateResult = MongoConnection.updateHighScore(ctx.request.body);
+  ctx.body = updateResult;
+});
+
+router.get("/api/getallscores", async (ctx, next) => {
+  let allScores = await MongoConnection.getAllScores();
+  ctx.body = allScores;
 });
 
 app

@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import useStopwatch from "../../hooks/useStopwatch";
 
-const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile }) => {
-    const { time, startTimer, stopTimer } = useStopwatch();
+const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile, time, startTimer }) => {    
     const sWatchContainer = useRef(null);
 
     useEffect(() => {

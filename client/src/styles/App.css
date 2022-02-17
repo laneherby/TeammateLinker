@@ -899,12 +899,12 @@
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
 }
 
 .gameEndText {
     font-size: 10em;
-    height: 20vh;
+    height: 20%;
 }
 
 .playAgainButton {
@@ -914,16 +914,54 @@
 }
 
 .playAgainButtonContainer {
-    height: 10vh;
-    padding: 2vh 0;
+    height: 10%;
+    padding: 2% 0;
+}
+
+.scoresBestContainer {
+    height: 20%;
+    width: 100%;
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+}
+
+.movesBestContainer {
+    width: 50%;
+    border-right: solid 3px #989898;
+}
+
+.timeBestContainer {
+    width: 50%;
+}
+
+.scoreValues {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.scoreTitle {
+    text-align: center;
+}
+
+.scoreNickname {
+    width: 75%;
+    text-align: center;
+}
+
+.scoreAmount {
+    width: 25%;
+    text-align: left;
 }
 
 .winningTeamContainer {
     width: calc(100% / 3);
     height: auto;
-    min-height: 30vh;
-    max-height: 70vh;
-    padding: 2vh 0;
+    min-height: 30%;
+    max-height: 60%;
+    padding: 2% 0;
 }
 
 .winningTeamContainer li {
@@ -932,4 +970,8 @@
 
 .noSolutionText {
     font-size: 5em;
+}
+
+@media only screen and (max-width: 1200) and (min-width: 769px) {
+
 }

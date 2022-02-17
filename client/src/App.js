@@ -24,6 +24,7 @@ const App = () => {
   const [endPlayer, setEndPlayer] = useState("");
   const [winningTeam, setWinningTeam] = useState([]);
   const [showUnsolvableWarning, setShowUnsolvableWarning] = useState(false);
+  const [gameHighScores, setGameHighScores] = useState({});
   
   const isMobile = useMobileCheck();
 
@@ -43,10 +44,12 @@ const App = () => {
       case GAME_STARTED:
         // const solvable = await isGameSolvable();
         // if(!solvable) setShowUnsolvableWarning(true);
+        console.log(startPlayer);
         break;
       case GAME_WON:
         history.push(endPlayer);
         setWinningTeam(history);
+        getHighScores();
         break;
       case GAME_SOLVED: 
         const solvedTeam = await solveGame();
@@ -77,6 +80,11 @@ const App = () => {
 
     return true;
   };
+
+  const getHighScores = async () => {
+    const highScoreData = (await axios.get(`/api/checkhighscore?playerOne=${startPlayer._id}&playerTwo=${endPlayer._id}`)).data;
+    setGameHighScores(highScoreData);
+  }
 
   const closeUnsolvableWarningDialog = () => {
     setShowUnsolvableWarning(false);
@@ -114,7 +122,11 @@ const App = () => {
           isMobile={isMobile}
         />;
       case GAME_WON:
-        return <GameWon resetGame={changeGameState} winningTeam={winningTeam} />;
+        return <GameWon 
+          resetGame={changeGameState} 
+          winningTeam={winningTeam}
+          highScore={gameHighScores}
+        />;
       case GAME_SOLVED:
         return <GameSolved resetGame={changeGameState} solvedTeam={winningTeam} />;
       default:

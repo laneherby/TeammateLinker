@@ -6,6 +6,7 @@ import StatusDisplay from './StatusDisplay';
 import { PlayerAlreadySelectedDialog, AskSolveDialog } from '../Dialogs';
 import SelectedPlayersDisplay from './SelectedPlayersDisplay';
 import { CloseGameIcon, SolveGameIcon } from '../Icons';
+import useStopwatch from '../../hooks/useStopwatch';
 
 const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isMobile }) => {
     const selectionHistory = useArray([]);
@@ -14,7 +15,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
     const [errorPlayerName, setErrorPlayerName] = useState("");
     const [showSolveDialog, setShowSolveDialog] = useState(false);
-
+    const { time, startTimer, stopTimer } = useStopwatch();
 
     const changeSelectedPlayer = (player) => {
         const playerInHistory = (p) => p._id === player._id;
@@ -56,6 +57,7 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
         const historyLength = selectionHistory.value.length;
         
         if((historyLength > 0) && (selectedPlayer._id === endPlayer._id)) {
+            console.log(time);
             winGame("GAME_WON", selectionHistory.value);
         }
         // eslint-disable-next-line
@@ -84,6 +86,8 @@ const GameScreen = ({ startPlayer, endPlayer, winGame, resetGame, solveGame, isM
                 handleHistoryClick={goBackInHistoryToPlayer}
                 numMoves={numMoves}
                 isMobile={isMobile}
+                startTimer={startTimer}
+                time={time}
             />
             <TeamScroller 
                 selectedPlayer={selectedPlayer} 

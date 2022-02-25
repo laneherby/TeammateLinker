@@ -10,10 +10,10 @@ const useStopwatch = () => {
         setTimerInterval(setInterval(() => {
             const elapsedTime = Date.now() - startTime;
             let newTime = {
-            hours: parseInt((elapsedTime / 3600000) % 24),
-            minutes: parseInt((elapsedTime / 60000) % 60),
-            seconds: parseInt((elapsedTime / 1000) % 60),
-            ms: parseInt((elapsedTime % 1000) / 10)
+                hours: parseInt((elapsedTime / 3600000) % 24),
+                minutes: parseInt((elapsedTime / 60000) % 60),
+                seconds: parseInt((elapsedTime / 1000) % 60),
+                ms: parseInt((elapsedTime % 1000) / 10)
             };
 
             for (let key in newTime) {

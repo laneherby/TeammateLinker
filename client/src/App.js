@@ -25,6 +25,7 @@ const App = () => {
   const [winningTeam, setWinningTeam] = useState([]);
   const [showUnsolvableWarning, setShowUnsolvableWarning] = useState(false);
   const [gameHighScores, setGameHighScores] = useState({});
+  const [userScore, setUserScore] = useState({});
   
   const isMobile = useMobileCheck();
 
@@ -33,7 +34,7 @@ const App = () => {
     if(type === "end") setEndPlayer(player);
   };
 
-  const changeGameState = async (state, history) => {
+  const changeGameState = async (state, history, score) => {
     switch (state) {
       case GAME_CHOICE:
         setStartPlayer("");
@@ -44,12 +45,12 @@ const App = () => {
       case GAME_STARTED:
         // const solvable = await isGameSolvable();
         // if(!solvable) setShowUnsolvableWarning(true);
-        console.log(startPlayer);
         break;
       case GAME_WON:
         history.push(endPlayer);
         setWinningTeam(history);
         getHighScores();
+        setUserScore(score);
         break;
       case GAME_SOLVED: 
         const solvedTeam = await solveGame();
@@ -126,6 +127,7 @@ const App = () => {
           resetGame={changeGameState} 
           winningTeam={winningTeam}
           highScore={gameHighScores}
+          userScore={userScore}
         />;
       case GAME_SOLVED:
         return <GameSolved resetGame={changeGameState} solvedTeam={winningTeam} />;

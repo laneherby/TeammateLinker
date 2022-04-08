@@ -8,6 +8,7 @@ import './styles/index.css';
 import './fonts/Kanit-BoldItalic.ttf';
 import './fonts/Kanit-Bold.ttf';
 import 'typeface-roboto';
+import { DataProvider } from './context/MainContext';
 
 const darkTheme = createTheme({
   palette: {
@@ -21,7 +22,9 @@ const darkTheme = createTheme({
 ReactDOM.render(
   <ThemeProvider theme={darkTheme}>
     <CssBaseline />
-    <App />
+    <DataProvider>
+      <App />
+    </DataProvider>
   </ThemeProvider>,
   document.getElementById('root')
 );

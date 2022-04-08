@@ -1,8 +1,12 @@
-import React,  { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
+import MainContext from "../../context/MainContext";
 
-const PlayerAutocomplete = ({ label, autocSetPlayer, keyboardUp, keyboardDown, isMobile }) => {
+const PlayerAutocomplete = ({ label, keyboardUp, keyboardDown }) => {
+    const {
+        setStartPlayer, setEndPlayer, isMobile
+    } = useContext(MainContext);
     const [searchResults, setSearchResults] = useState([]);
     const autoCompInput = useRef();
 
@@ -13,15 +17,15 @@ const PlayerAutocomplete = ({ label, autocSetPlayer, keyboardUp, keyboardDown, i
             });
         }
         else {
-            if(label === "Start Player") autocSetPlayer("", "start");
-            if(label === "End Player") autocSetPlayer("", "end");
+            if(label === "Start Player") setStartPlayer("");
+            if(label === "End Player") setEndPlayer("");
             setSearchResults([]);
         }
     };
 
     const playerSelected = (e, value) => {
-        if(label === "Start Player") autocSetPlayer(value, "start");
-        if(label === "End Player") autocSetPlayer(value, "end");
+        if(label === "Start Player") setStartPlayer(value);
+        if(label === "End Player") setEndPlayer(value);
         if(isMobile) {
             autoCompInput.current.children[1].children[0].blur();
             keyboardDown();

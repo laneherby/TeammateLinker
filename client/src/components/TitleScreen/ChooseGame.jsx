@@ -1,18 +1,20 @@
-import React from "react";
+import { useContext } from "react";
 import Title from "./Title";
 import { Box, Tooltip, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import HelpIcon from '@mui/icons-material/Help';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import MainContext from '../../context/MainContext';
 
-const ChooseGame =({ setGameType }) => {
+const ChooseGame =() => {
+    const { states, changeGameStateCtx } = useContext(MainContext);
     
     const handleRandomClick = () => {
-        setGameType("RANDOM_GAME_SELECTED");
+        changeGameStateCtx(states.RANDOM_GAME_SELECTED);
     };
 
     const handleSearchClick = () => {
-        setGameType("USER_GAME_SELECTED");
+        changeGameStateCtx(states.USER_GAME_SELECTED);
     };
 
     return (

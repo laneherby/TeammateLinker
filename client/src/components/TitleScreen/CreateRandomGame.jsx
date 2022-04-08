@@ -1,16 +1,36 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import PlayerCard from './PlayerCard';
 import Title from './Title';
 import { GoBackArrow } from '../Icons';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
+import MainContext from '../../context/MainContext';
 
-const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, goBack, isMobile }) => {
+const CreateRandomGame = ({ rollPlayers }) => {
+    const {
+        setStartPlayer, startPlayer, setEndPlayer, endPlayer, states, changeGameStateCtx, isMobile 
+    } = useContext(MainContext);
+
+    const [fetchURL, setFetchURL] = useState("");
+    const { data } = useAxiosFetch(fetchURL, "GET");
+
     const currYear = new Date().getFullYear();
     const cardContainer = useRef();
     const [startYear, setStartYear] = useState(2010);    
     const [endYear, setEndYear] = useState(currYear);
     const [rollCooldown, setRollCooldown] = useState(false);
     const [canStartGame, setCanStartGame] = useState(false);
+    const [rollCounter, setRollCounter] = useState(1);
+
+    useEffect(() => {
+        if(data) {
+            setCanStartGame(true);
+            setStartPlayer(data[0]);
+            setEndPlayer(data[1]);
+        } else {
+            setCanStartGame(false);
+        }
+    }, [data, setStartPlayer, setEndPlayer]);
 
     const checkNumber = (e) => {
         if(e.keyCode === 8 || e.keyCode === 46 ||
@@ -22,9 +42,10 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
     };
 
     const rollButtonClick = () => {
+        setRollCooldown(true);
+
         let paramStartYear = startYear;
         let paramEndYear = endYear;
-        setRollCooldown(true);
         cardContainer.current.style.display = "flex";
         
         if(isNaN(startYear) || parseInt(startYear) < 1900 || parseInt(startYear) > currYear) {
@@ -43,10 +64,11 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
             setEndYear(paramEndYear);
         }
 
-        rollPlayers(paramStartYear, paramEndYear);        
+        setFetchURL(`/api/gettwoplayers?startYear=${startYear}&endYear=${endYear}&numRolls=${rollCounter}`);
 
         setTimeout(() => {
             setRollCooldown(false);
+            setRollCounter(rollCounter+1);
             if(!canStartGame) setCanStartGame(true);
         }, 2000);
     };
@@ -65,7 +87,7 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
 
     return (
         <Box className={"gameContainer"}>
-            <GoBackArrow goBack={goBack} />
+            <GoBackArrow />
             <Title />
             <Box className={"choicesContainer"}>
                 <Box className={"paramsBorder"}>
@@ -105,14 +127,14 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                 <Box className={"playerCardContainer"} ref={cardContainer}>
                     <Box className={"playerCard"}>
                         <PlayerCard
-                            playerName={startPlayer.name ?? ""} 
-                            playerImage={startPlayer.image ?? ""}
+                            playerName={(startPlayer) ? startPlayer.name : ""} 
+                            playerImage={(startPlayer) ? startPlayer.image : ""}
                         />
                     </Box>
                     <Box className={"playerCard"}>
                         <PlayerCard
-                            playerName={endPlayer.name ?? ""}
-                            playerImage={endPlayer.image ?? ""}
+                            playerName={(endPlayer) ? endPlayer.name : ""}
+                            playerImage={(endPlayer) ? endPlayer.image : ""}
                         />
                     </Box>
                 </Box>
@@ -130,8 +152,8 @@ const CreateRandomGame = ({ startPlayer, endPlayer, rollPlayers, startTheGame, g
                         variant="contained"
                         className={"startButton titleButtons glossyButtons"}
                         disabled={!canStartGame}
-                        onClick={() => startTheGame("GAME_STARTED")}
-                        onMouseDown={() => startTheGame("GAME_STARTED")}
+                        onClick={() => changeGameStateCtx(states.GAME_STARTED)}
+                        onMouseDown={() => changeGameStateCtx(states.GAME_STARTED)}
                     >
                         START GAME
                     </Button>

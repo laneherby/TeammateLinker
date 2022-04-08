@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Box, Button } from '@mui/material';
 import Title from "./Title";
 import { GoBackArrow } from '../Icons';
 import PlayerAutocomplete from "./PlayerAutocomplete";
 import PlayerCard from "./PlayerCard";
+import MainContext from "../../context/MainContext";
 
-const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTheGame, isMobile }) => {
+const CreateUserGame = () => {
+    const {
+        startPlayer, endPlayer, states, changeGameStateCtx, isMobile 
+    } = useContext(MainContext);
+
     const [canStartGame, setCanStartGame] = useState(false);
     const cardContainer = useRef();
 
@@ -34,7 +39,7 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
 
     return (
         <Box className={"gameContainer"}>
-            <GoBackArrow goBack={goBack} />
+            <GoBackArrow />
             <Title />
             <Box className={"choicesContainer"}>
                 <Box className={"paramsBorder"}>
@@ -44,14 +49,12 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
                     <Box className={"paramsContainer"}>
                         <PlayerAutocomplete 
                             label={"Start Player"}
-                            autocSetPlayer={userSetPlayer}
                             keyboardUp={keyboardUp}
                             keyboardDown={keyboardDown}
                             isMobile={isMobile}
                         />
                         <PlayerAutocomplete 
                             label={"End Player"}
-                            autocSetPlayer={userSetPlayer}
                             keyboardUp={keyboardUp}
                             keyboardDown={keyboardDown}
                             isMobile={isMobile}
@@ -77,7 +80,7 @@ const CreateUserGame = ({ goBack, startPlayer, endPlayer, userSetPlayer, startTh
                         variant="contained"
                         className={"startButton titleButtons glossyButtons"}
                         disabled={!canStartGame}
-                        onClick={() => startTheGame("GAME_STARTED")}
+                        onClick={() => changeGameStateCtx(states.GAME_STARTED)}
                     >
                         START GAME
                     </Button>

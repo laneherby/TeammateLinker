@@ -1,11 +1,14 @@
-import React from "react";
+import { useContext } from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import MainContext from "../../context/MainContext";
 
-const CloseGameIcon = ({ resetGame }) => {
+const CloseGameIcon = () => {
+    const { states, changeGameStateCtx } = useContext(MainContext);
+
     return (
         <div 
             className={"closeGameContainer"}
-            onClick={() => resetGame("GAME_CHOICE")}
+            onClick={() => changeGameStateCtx(states.GAME_CHOICE)}
             title={"Close Game"}
         >
             <CloseIcon />

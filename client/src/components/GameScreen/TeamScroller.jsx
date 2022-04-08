@@ -1,36 +1,42 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { Box, LinearProgress } from '@mui/material';
-import axios from 'axios';
 import Team from './Team';
 import { ScrollArrows } from "../Icons";
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { teamData } from '../../data/teamData';
+import MainContext from "../../context/MainContext";
+import useAxiosFetch from "../../hooks/useAxiosFetch";
 
 
-const TeamScroller = ({ selectedPlayer, changeSelectedPlayer, isMobile }) => {
+const TeamScroller = () => {
+    const { selectedPlayer } = useContext(MainContext);
+    const [fetchURL, setFetchURL] = useState("");
+    const { data } = useAxiosFetch(fetchURL, "GET");
     const tmmateContainer = useRef();
     const [teammates, setTeammates] = useState([]);
     const [teammatesLoaded, setTeammatesLoaded] = useState(false);
     const [showArrows, setShowArrows] = useState(true);
     const { wWidth } = useWindowDimensions();
 
+
     useEffect(() => {
         if(selectedPlayer !== "" || selectedPlayer) {
             setTeammatesLoaded(false);
 
             const playerID = (selectedPlayer.hasOwnProperty("_id")) ? selectedPlayer._id : selectedPlayer.id;
-
-            axios.get(`/api/getteammates/${encodeURIComponent(playerID)}`).then((res) => {
-                setTeammates(res.data);
-                setTeammatesLoaded(true);
-                
-                if((wWidth > 1330 && res.data.length <= 4) || (wWidth > 768 && res.data.length <=3)) {
-                    setShowArrows(false);
-                }
-            });
+            setFetchURL(`/api/getteammates/${encodeURIComponent(playerID)}`);
+            
+            if((wWidth > 1330 && data.length <= 4) || (wWidth > 768 && data.length <=3)) {
+                setShowArrows(false);
+            }
         }
         // eslint-disable-next-line
     }, [selectedPlayer]);
+
+    useEffect(() => {        
+        setTeammates(data);
+        setTeammatesLoaded(true);
+    }, [data]);
 
     useEffect(() => {
         if((wWidth > 1330 && teammates.length <= 4) || (wWidth > 768 && teammates.length <=3) || (wWidth < 768)) {
@@ -72,7 +78,6 @@ const TeamScroller = ({ selectedPlayer, changeSelectedPlayer, isMobile }) => {
                             return ((roster._id.team in teamData) 
                                 ? <Team 
                                     roster={roster} 
-                                    changeSelectedPlayer={changeSelectedPlayer}
                                     key={roster._id.year + roster._id.team}
                                   /> 
                                 : null);

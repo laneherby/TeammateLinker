@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import { 
     Dialog, 
     DialogActions, 
@@ -7,8 +7,11 @@ import {
     DialogContentText, 
     Button
 } from '@mui/material';
+import MainContext from "../../context/MainContext";
 
-const PlayerAlreadySelectedDialog = ({ open, solveGame, closeSolveDialog }) => {
+const PlayerAlreadySelectedDialog = ({ open }) => {
+    const { states, changeGameStateCtx, setShowSolveDialog } = useContext(MainContext);
+
     return (
         <Dialog open={open}>
             <DialogTitle>
@@ -20,10 +23,10 @@ const PlayerAlreadySelectedDialog = ({ open, solveGame, closeSolveDialog }) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => solveGame("GAME_SOLVED")} variant="contained">
+                <Button onClick={() => changeGameStateCtx(states.GAME_SOLVED)} variant="contained">
                     Yes
                 </Button>
-                <Button onClick={closeSolveDialog} variant="contained">
+                <Button onClick={() => setShowSolveDialog(false)} variant="contained">
                     No
                 </Button>
             </DialogActions>

@@ -1,10 +1,13 @@
-import React from "react";
+import { useContext } from "react";
 import { Box, List, ListItem } from '@mui/material';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import { teamData } from '../../data/teamData';
+import MainContext from "../../context/MainContext";
 
-const Team = ({ roster, changeSelectedPlayer }) => {
+const Team = ({ roster }) => {
+    const { changeSelectedPlayer } = useContext(MainContext);
+
     const teamStyles = {
         "sxContainer": {
             "background": teamData[roster._id.team].primary

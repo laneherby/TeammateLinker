@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import { 
     Dialog, 
     DialogActions, 
@@ -7,8 +7,11 @@ import {
     DialogContentText, 
     Button
 } from '@mui/material';
+import MainContext from "../../context/MainContext";
 
-const PlayerAlreadySelectedDialog = ({ open, player, closeDialog }) => {
+const PlayerAlreadySelectedDialog = ({ open }) => {
+    const { errorPlayerName, setshowAlreadySelectedDialog } = useContext(MainContext);
+
     return (
         <Dialog open={open}>
             <DialogTitle>
@@ -16,11 +19,11 @@ const PlayerAlreadySelectedDialog = ({ open, player, closeDialog }) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    {`${player} is currently selected or is part of your selection history and cannot be selected again.`}
+                    {`${errorPlayerName} is currently selected or is part of your selection history and cannot be selected again.`}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={closeDialog} variant="contained">
+                <Button onClick={() => setshowAlreadySelectedDialog(false)} variant="contained">
                     OKAY
                 </Button>
             </DialogActions>

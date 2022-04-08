@@ -1,8 +1,12 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Box } from '@mui/material';
 import PlayerDisplay from './PlayerDisplay';
+import MainContext from '../../context/MainContext';
 
-const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }) => {
+const SelectedPlayersDisplay = () => {
+    const {
+        selectedPlayer, startPlayer, endPlayer, isMobile
+    } = useContext(MainContext);
 
     const renderDisplay = () => {
         if(isMobile) {
@@ -21,7 +25,7 @@ const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }
                             Selected:
                         </span> 
                         <span>
-                            {currPlayer.name}
+                            {selectedPlayer.name}
                         </span>
                     </Box>
                     <Box className={"mobilePlayersChild"}>
@@ -44,8 +48,8 @@ const SelectedPlayersDisplay = ({ currPlayer, startPlayer, endPlayer, isMobile }
                 />
                 <PlayerDisplay
                     topText={"Selected Player"}
-                    playerImage={currPlayer.image}
-                    playerName={currPlayer.name}
+                    playerImage={selectedPlayer.image}
+                    playerName={selectedPlayer.name}
                 />
                 <PlayerDisplay
                     topText={"End Player"}

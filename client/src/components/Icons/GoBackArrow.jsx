@@ -1,11 +1,14 @@
-import React from "react";
+import { useContext } from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MainContext from "../../context/MainContext";
 
-const GoBackArrow = ({ goBack }) => {
+const GoBackArrow = () => {
+    const { states, changeGameStateCtx } = useContext(MainContext);
+
     return (
         <div 
             className={"backArrowContainer"}
-            onClick={() => goBack("GAME_CHOICE")}
+            onClick={() => changeGameStateCtx(states.GAME_CHOICE)}
             title={"Go Back"}
         >
             <ArrowBackIcon />

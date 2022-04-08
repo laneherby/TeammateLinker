@@ -17,7 +17,7 @@ const PlayerCard = ({ playerName, playerImage }) => {
 
             setTimeout(() => {
                 setDisplayImage(playerImage);
-                setDisplayName(playerName)
+                setDisplayName(playerName);
             }, 1200);
         }
         else {

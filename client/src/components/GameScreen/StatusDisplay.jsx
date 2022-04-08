@@ -1,7 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import MainContext from "../../context/MainContext";
 
-const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile, time, startTimer }) => {    
+const StatusDisplay = () => {
+    const {
+        selectionHistory, goBackInHistoryToPlayer, numMoves,
+        isMobile, time, startTimer
+    } = useContext(MainContext);
     const sWatchContainer = useRef(null);
 
     useEffect(() => {
@@ -24,7 +29,7 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile, time, 
     }, [sWatchContainer]);
 
     const handleOnChange = (e) => {
-        handleHistoryClick(e.target.value);
+        goBackInHistoryToPlayer(e.target.value);
     };
 
     const renderStopwatch = () => {
@@ -47,7 +52,7 @@ const StatusDisplay = ({ history, handleHistoryClick, numMoves, isMobile, time, 
 
     const renderOptions = () => {
         return (
-            history.slice(0).reverse().map((player) => {
+            selectionHistory.value.slice(0).reverse().map((player) => {
                 return (
                     <MenuItem
                         data-player-id={player._id}

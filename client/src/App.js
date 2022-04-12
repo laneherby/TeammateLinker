@@ -49,11 +49,7 @@ const App = () => {
       case states.GAME_STARTED:
         return <GameScreen />;
       case states.GAME_WON:
-        return <GameWon 
-          winningTeam={winningTeam}
-          highScore={gameHighScores}
-          userScore={userScore}
-        />;
+        return <GameWon />;
       case states.GAME_SOLVED:
         return <GameSolved solvedTeam={winningTeam} />;
       default:

@@ -27,13 +27,13 @@ export const DataProvider = ({ children }) => {
     const [errorPlayerName, setErrorPlayerName] = useState("");
     const [showSolveDialog, setShowSolveDialog] = useState(false);
 
-    const { time, startTimer } = useStopwatch();
+    const { time, startTimer, stopTimer } = useStopwatch();
 
     useEffect(() => {
       setSelectedPlayer(startPlayer);
     }, [startPlayer]);
 
-    const changeGameStateCtx = async (state, history, score) => {
+    const changeGameStateCtx = async (state, history) => {
         switch (state) {
           case states.GAME_CHOICE:
             setStartPlayer("");
@@ -45,7 +45,6 @@ export const DataProvider = ({ children }) => {
             break;
           case states.GAME_WON:
             history.push(endPlayer);
-            setWinningTeam(history);
             // getHighScores();
             // setUserScore(score);
             break;
@@ -84,6 +83,15 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const convertStopwatchToSeconds = (time) => {
+        const hourSeconds = parseInt(time.hours) * 3600;
+        const minuteSeconds = parseInt(time.minutes) * 60;
+        const seconds = parseInt(time.seconds);
+        const msSeconds = parseInt(time.ms) / 1000;
+
+        return hourSeconds + minuteSeconds + seconds + msSeconds;
+    };
+
     return (
         <MainContext.Provider value={{
             isMobile, states,
@@ -98,7 +106,7 @@ export const DataProvider = ({ children }) => {
             showSolveDialog, setShowSolveDialog,
             showAlreadySelectedDialog, setshowAlreadySelectedDialog,
             errorPlayerName, setErrorPlayerName,
-            time, startTimer
+            time, startTimer, stopTimer, convertStopwatchToSeconds
         }}>
             {children}
         </MainContext.Provider>

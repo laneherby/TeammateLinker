@@ -33,10 +33,15 @@ const TeamScroller = () => {
         // eslint-disable-next-line
     }, [selectedPlayer]);
 
-    useEffect(() => {        
+    useEffect(() => {
         setTeammates(data);
-        setTeammatesLoaded(true);
     }, [data]);
+
+    useEffect(() => {
+        if(teammates.length > 0){
+            setTeammatesLoaded(true);
+        }
+    }, [teammates]);
 
     useEffect(() => {
         if((wWidth > 1330 && teammates.length <= 4) || (wWidth > 768 && teammates.length <=3) || (wWidth < 768)) {

@@ -1,31 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Team from '../GameScreen/Team';
+import MainContext from "../../context/MainContext";
+import useAxiosFetch from "../../hooks/useAxiosFetch";
 import { NewHighScoreDialog } from '../Dialogs';
 
-const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
+const GameWon = () => {
+    const {
+        states, changeGameStateCtx, numMoves, time, selectionHistory, startPlayer, endPlayer, convertStopwatchToSeconds
+    } = useContext(MainContext);
+    const { data } = useAxiosFetch(`/api/checkhighscore?playerOne=${startPlayer._id}&playerTwo=${endPlayer._id}`, "GET");
+
+    const [highScore, setHighScore] = useState("");
     const [teamMarkup, setTeamMarkup] = useState("");
     const [newMovesScore, setNewMovesScore] = useState(false);
     const [newTimeScore, setNewTimeScore] = useState(false);
     const [openScoreDialog, setOpenScoreDialog] = useState(false);
     const [winningTime, setWinningTime] = useState({});
     const [winningMoves, setWinningMoves] = useState(0);
+    const [movesLeader, setMovesLeader] = useState("");
+    const [timeLeader, setTimeLeader] = useState("");
 
     useEffect(() => {
-        if(winningTeam.length > 1) {
+        setHighScore(data);
+    }, [data]);
+
+    useEffect(() => {
+        if(selectionHistory.value.length > 1) {
             const roster = {
                 "_id": {
                     "team": "WIN",
                     "year": ""
                 },
-                "results": winningTeam
+                "results": selectionHistory.value
             };
 
             setTeamMarkup(<Box className={"winningTeamContainer"}><Team roster={roster} changeSelectedPlayer={() => {}} /></Box>);
         }
         
-        const userScoreSeconds = convertStopwatchToSeconds(userScore.time);
+        const userScoreSeconds = convertStopwatchToSeconds(time);
 
         if(highScore === "no_scores") {
             setNewMovesScore(true);
@@ -36,46 +50,42 @@ const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
             if(userScoreSeconds < highScore.seconds) {
                 setNewTimeScore(true);
                 setOpenScoreDialog(true);
-                setWinningTime(userScore.time);
+                setWinningTime(time);
             }
             else {
                 setWinningTime(convertSecondsToStopwatch(highScore.seconds));
+                setTimeLeader(highScore.timeLeader);
             }
                 
-            if(userScore.moves < highScore.moves) {
+            if(numMoves < highScore.moves) {
                 setNewMovesScore(true);
-                setWinningMoves(userScore.moves);                
+                setWinningMoves(numMoves);                
             }
             else {
-                setWinningMoves(highScore.moves);
+                setWinningMoves(numMoves);
+                setMovesLeader(highScore.movesLeader)
             }
         }
-        
-    }, [winningTeam, highScore, userScore]);
+    }, [highScore]);
 
-    const updateName = (nickname) => {
-        console.log(nickname);
-        setOpenScoreDialog(false);
-    };
-
-    const convertStopwatchToSeconds = (time) => {
-        const hourSeconds = parseInt(time.hours) * 3600;
-        const minuteSeconds = parseInt(time.minutes) * 60;
-        const seconds = parseInt(time.seconds);
-        const msSeconds = parseInt(time.ms) / 1000;
-
-        return hourSeconds + minuteSeconds + seconds + msSeconds;
+    const closeHighScoreDialog = (nickname) => {
+        if(newMovesScore) setMovesLeader(nickname);
+        if(newTimeScore) setTimeLeader(nickname);
+        setOpenScoreDialog(false);        
     };
 
     const convertSecondsToStopwatch = (seconds) => {
-        const timeArray = new Date(seconds * 1000).toISOString().substring(11, 19).split(':');
-        const secondsAndMilliseconds = timeArray[2].split('.');
+        seconds = Number(seconds);
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor(seconds % 3600 / 60);
+        const s = Math.floor(seconds % 3600 % 60);
+        const ms = (seconds % 1).toFixed(2);
 
         const displayTime = {
-            "hours": timeArray[0],
-            "minutes": timeArray[1],
-            "seconds": secondsAndMilliseconds[0],
-            "ms": secondsAndMilliseconds[1]
+            "hours": h,
+            "minutes": m,
+            "seconds": s,
+            "ms": ms.split(".")[1]
         };
 
         return displayTime;
@@ -87,7 +97,7 @@ const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
                 open={openScoreDialog}
                 newMovesScore={newMovesScore}
                 newTimeScore={newTimeScore}
-                updateNameAndClose={updateName}
+                close={closeHighScoreDialog}
             />
             <Box className={"endScreenContainer"}>
                 <Box className={"gameEndText"}>
@@ -100,10 +110,10 @@ const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
                         </div>
                         <div className="scoreValues">
                             <span className="scoreNickname">
-                                laneherby14:
+                                {movesLeader}:
                             </span>
                             <span className="scoreAmount">
-                                3
+                                {winningMoves}
                             </span>
                         </div>
                     </Box>
@@ -113,10 +123,10 @@ const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
                         </div>
                         <div className="scoreValues">
                             <span className="scoreNickname">
-                                laneherby14:
+                                {timeLeader}: 
                             </span>
                             <span className="scoreAmount">
-                                3
+                                {winningTime.hours}:{winningTime.minutes}:{winningTime.seconds}:{winningTime.ms}
                             </span>
                         </div>
                     </Box>
@@ -125,7 +135,7 @@ const GameWon = ({ resetGame, winningTeam, highScore, userScore }) => {
                     <Button 
                         variant="contained"
                         className={"startButton playAgainButton glossyButtons"}
-                        onClick={() => resetGame("GAME_CHOICE")}
+                        onClick={() => changeGameStateCtx(states.GAME_CHOICE)}
                     >
                         PLAY AGAIN
                     </Button>

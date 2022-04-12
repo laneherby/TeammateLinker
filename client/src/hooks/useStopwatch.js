@@ -20,7 +20,7 @@ const useStopwatch = () => {
             if (newTime[key] < 10) newTime[key] = `0${newTime[key]}`;
             }
             setTime(newTime);
-        }, 10));
+        }, 100));
     };
 
     const stopTimer = () => {        

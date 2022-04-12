@@ -36,7 +36,7 @@ const StatusDisplay = () => {
         return (
             <Box className={"stopwatchContainer statusBox"} ref={sWatchContainer}>
                 <span>
-                    {time.minutes}:{time.seconds}:{time.ms}
+                {time.hours}:{time.minutes}:{time.seconds}
                 </span>
             </Box>
         );

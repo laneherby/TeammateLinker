@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { 
     Dialog, 
     DialogActions, 
@@ -6,15 +6,25 @@ import {
     DialogContent,
     DialogContentText, 
     Button,
-    TextField
+    TextField,
+    CircularProgress
 } from '@mui/material';
+import MainContext from '../../context/MainContext';
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 
-const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, updateNameAndClose }) => {
+const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, close }) => {
+    const {
+        startPlayer, endPlayer, time, numMoves, convertStopwatchToSeconds
+    } = useContext(MainContext);
+
     const [nickname, setNickname] = useState("");
     const [dialogText, setDialogText] = useState("");
+    const [buttonText, setButtonText] = useState("Submit");
+    const [fetchURL, setFetchURL] = useState("");
+    const [postBody, setPostBody] = useState(null);
+    const { data } = useAxiosFetch(fetchURL, "POST", postBody);
 
     useEffect(() => {
-        console.log(newMovesScore, newTimeScore);
         let newDialogText = "New high score in: ";
 
         if(newMovesScore === true && newTimeScore === false) {
@@ -29,13 +39,32 @@ const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, updateNameAndCl
 
         setDialogText(newDialogText);        
     }, [newMovesScore, newTimeScore]);
+    
+    useEffect(() => {
+        if(postBody !== null) {
+            console.log(postBody);
+            setFetchURL(`/api/updatescore`);
+        }
+    }, [postBody]);
+
+    useEffect(() => {
+        close(nickname)
+    }, [data]);
 
     const handleNameChange = (e) => {
         setNickname(e.target.value);
     };
 
     const submitName = () => {
-        updateNameAndClose(nickname);
+        const scoreData = {            
+            players: [startPlayer._id, endPlayer._id],
+            ...(newTimeScore && {seconds: convertStopwatchToSeconds(time)}),
+            ...(newMovesScore && {moves: numMoves}),
+            ...(newTimeScore && {timeLeader: nickname}),
+            ...(newMovesScore && {movesLeader: nickname})            
+        };        
+        setPostBody(scoreData);
+        setButtonText(<CircularProgress />);
     };
 
     return (
@@ -63,7 +92,7 @@ const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, updateNameAndCl
                     variant="contained"
                     disabled={nickname.length < 1}
                 >
-                    Submit
+                    {buttonText}
                 </Button>
             </DialogActions>
         </Dialog>

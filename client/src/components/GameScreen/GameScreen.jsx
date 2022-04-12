@@ -10,14 +10,15 @@ import MainContext from '../../context/MainContext';
 const GameScreen = () => {
     const {
         states, changeGameStateCtx, selectionHistory, selectedPlayer,
-        endPlayer, numMoves, time, showAlreadySelectedDialog, showSolveDialog
+        endPlayer, showAlreadySelectedDialog, showSolveDialog, stopTimer
     } = useContext(MainContext);
 
     useEffect(() => {
         const historyLength = selectionHistory.value.length;
         
         if((historyLength > 0) && (selectedPlayer._id === endPlayer._id)) {
-            changeGameStateCtx(states.GAME_WON, selectionHistory.value, {"time": time, "moves": numMoves});
+            changeGameStateCtx(states.GAME_WON, selectionHistory.value);
+            stopTimer();
         }
         // eslint-disable-next-line
     }, [selectionHistory]);

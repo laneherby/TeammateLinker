@@ -938,7 +938,7 @@
 
 .scoreValues {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -947,13 +947,9 @@
 }
 
 .scoreNickname {
-    width: 75%;
-    text-align: center;
 }
 
 .scoreAmount {
-    width: 25%;
-    text-align: left;
 }
 
 .winningTeamContainer {

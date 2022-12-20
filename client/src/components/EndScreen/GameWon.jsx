@@ -135,7 +135,7 @@ const GameWon = () => {
                     <Button 
                         variant="contained"
                         className={"startButton playAgainButton glossyButtons"}
-                        onClick={() => changeGameStateCtx(states.GAME_CHOICE)}
+                        onClick={() => changeGameStateCtx(states.GAME_CHOICE)} //NEED TO CLEAR SELECTION HISTORY BEFORE STARTING NEW GAME
                     >
                         PLAY AGAIN
                     </Button>

@@ -952,6 +952,11 @@
 .scoreAmount {
 }
 
+.scoreMilliseconds {
+    font-size: 0.6em;
+    padding-left: 3px;
+}
+
 .winningTeamContainer {
     width: calc(100% / 3);
     height: auto;

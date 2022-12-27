@@ -8,6 +8,8 @@ const sanitize = require("mongo-sanitize");
 const app = new Koa();
 const router = KoaRouter();
 
+console.log('server started');
+
 router.get("/api", (ctx, next) => {
     ctx.body = {"message": "I'm here"};
 })
@@ -24,6 +26,7 @@ router.get("/api/getteammates/:playerID", async (ctx, next) => {
 });
 
 router.get("/api/search/:name", async (ctx, next) => {
+  console.log(ctx.params.name);
   const searchResult = await MongoConnection.searchPlayerNames(sanitize(ctx.params.name));
   ctx.body = searchResult;
 });

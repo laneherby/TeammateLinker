@@ -156,7 +156,7 @@ const searchPlayerNames = async (playerName) => {
     searchResults = await collection.aggregate([
       {
         "$search": {
-          "index": "autocompletename",
+          "index": "default",
           "autocomplete": {
             "query": playerName,
             "path": "searchName"       

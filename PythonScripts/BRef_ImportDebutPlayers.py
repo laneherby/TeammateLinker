@@ -16,7 +16,7 @@ def process_player_list(player_soup):
     for row in player_soup.find("table", id="misc_bio").find("tbody").findAll("tr"):
         player_name = row.find("td", {"data-stat": "player"}).find("a").text
         player_url = row.find("td", {"data-stat": "player"}).find("a").get("href")
-        player_debut = row.find("td", {"data-stat": "debut"}).get("csk")        
+        player_debut = row.find("td", {"data-stat": "debut"}).get("csk")
 
         player_list.append({
             "_id": player_url,
@@ -43,12 +43,13 @@ def remove_old_debuts(last_player_url):
 def get_player_info(player_page_url):
     player_soup = BeautifulSoup(requests.get(f"https://www.baseball-reference.com{player_page_url}").text.replace("<!--","").replace("-->",""), "html.parser")
 
-    info_page_player_name = player_soup.find("h1", {"itemprop": "name"}).find("span").text
-    
+    meta_div = player_soup.find("div", id="meta")
+
+    info_page_player_name = meta_div.find("h1").find("span").text    
     player_image_url = ""
 
     try:
-        player_image_url = player_soup.find("div", id="meta").find("img").get("src")
+        player_image_url = meta_div.find("img").get("src")
     except:
         player_image_url = "None"
 
@@ -68,20 +69,21 @@ def get_player_info(player_page_url):
     return {"name": info_page_player_name, "image": player_image_url, "teams": player_history}
 
 #get list of all player debuts for given year and convert them into a list of dictionaries
-process_player_list(get_list_of_debuts_bref("2021"))
+process_player_list(get_list_of_debuts_bref("2022"))
 
 #get the last player inserted from mongo
 last_player_inserted = get_latest_insert()
 
-#remove all the players from the list that already exist in the database becuase their debuts occured before the last insert
+# #remove all the players from the list that already exist in the database becuase their debuts occured before the last insert
+print(len(player_list))
 remove_old_debuts(last_player_inserted["url"])
+print(len(player_list))
 
-#loop through all the new players to get their teams and image urls
-#also print out names of players being added so I can check them manually if I want
+# #loop through all the new players to get their teams and image urls
+# #also print out names of players being added so I can check them manually if I want
 for player in player_list:
     player.update(get_player_info(player["_id"]))
-    
 
 # #insert players into mongo
-print(f"Importing {len(player_list)} players\nOldest debut added: {player_list[0]['name']}\nNewest debut added: {player_list[len(player_list)-1]['name']}")
+#print(f"Importing {len(player_list)} players\nLast Player in DB: {last_player_inserted}\nOldest debut added: {player_list[0]['name']}\nNewest debut added: {player_list[len(player_list)-1]['name']}")
 player_collection.insert_many(player_list)

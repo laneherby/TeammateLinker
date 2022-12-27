@@ -8,7 +8,7 @@ import { NewHighScoreDialog } from '../Dialogs';
 
 const GameWon = () => {
     const {
-        states, changeGameStateCtx, numMoves, time, selectionHistory, startPlayer, endPlayer, convertStopwatchToSeconds
+        states, changeGameStateCtx, numMoves, totalSecondsPlayed, playTime, selectionHistory, startPlayer, endPlayer, convertSecondsToStopwatch
     } = useContext(MainContext);
     const { data } = useAxiosFetch(`/api/checkhighscore?playerOne=${startPlayer._id}&playerTwo=${endPlayer._id}`, "GET");
 
@@ -38,8 +38,6 @@ const GameWon = () => {
 
             setTeamMarkup(<Box className={"winningTeamContainer"}><Team roster={roster} changeSelectedPlayer={() => {}} /></Box>);
         }
-        
-        const userScoreSeconds = convertStopwatchToSeconds(time);
 
         if(highScore === "no_scores") {
             setNewMovesScore(true);
@@ -47,10 +45,10 @@ const GameWon = () => {
             setOpenScoreDialog(true);
         }
         else {
-            if(userScoreSeconds < highScore.seconds) {
+            if(totalSecondsPlayed < highScore.seconds) {
                 setNewTimeScore(true);
                 setOpenScoreDialog(true);
-                setWinningTime(time);
+                setWinningTime(playTime);
             }
             else {
                 setWinningTime(convertSecondsToStopwatch(highScore.seconds));
@@ -72,24 +70,7 @@ const GameWon = () => {
         if(newMovesScore) setMovesLeader(nickname);
         if(newTimeScore) setTimeLeader(nickname);
         setOpenScoreDialog(false);        
-    };
-
-    const convertSecondsToStopwatch = (seconds) => {
-        seconds = Number(seconds);
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor(seconds % 3600 / 60);
-        const s = Math.floor(seconds % 3600 % 60);
-        const ms = (seconds % 1).toFixed(2);
-
-        const displayTime = {
-            "hours": h,
-            "minutes": m,
-            "seconds": s,
-            "ms": ms.split(".")[1]
-        };
-
-        return displayTime;
-    };
+    };    
 
     return (
         <React.Fragment>
@@ -126,7 +107,7 @@ const GameWon = () => {
                                 {timeLeader}: 
                             </span>
                             <span className="scoreAmount">
-                                {winningTime.hours}:{winningTime.minutes}:{winningTime.seconds}:{winningTime.ms}
+                                {winningTime.minutes}:{winningTime.seconds}<span className="scoreMilliseconds">{winningTime.ms}</span>
                             </span>
                         </div>
                     </Box>

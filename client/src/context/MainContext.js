@@ -26,6 +26,9 @@ export const DataProvider = ({ children }) => {
     const [showAlreadySelectedDialog, setshowAlreadySelectedDialog] = useState(false);
     const [errorPlayerName, setErrorPlayerName] = useState("");
     const [showSolveDialog, setShowSolveDialog] = useState(false);
+    const [startTime, setStartTime] = useState(null);
+    const [totalSecondsPlayed, setTotalSecondsPlayed] = useState(0);
+    const [playTime, setPlayTime] = useState({});
 
     const { time, startTimer, stopTimer } = useStopwatch();
 
@@ -33,17 +36,40 @@ export const DataProvider = ({ children }) => {
       setSelectedPlayer(startPlayer);
     }, [startPlayer]);
 
+    const convertSecondsToStopwatch = (seconds) => {
+      seconds = Number(seconds);
+      let m = Math.floor(seconds / 60);
+      let s = Math.floor(seconds % 3600 % 60);
+      const ms = (seconds % 1).toFixed(2);
+
+      m = (m < 10) ? "0" + m : m;
+      s = (s < 10) ? "0" + s : s;
+
+      const displayTime = {
+          "minutes": m,
+          "seconds": s,
+          "ms": ms.split(".")[1]
+      };
+      return displayTime;
+  };
+
     const changeGameStateCtx = async (state, history) => {
         switch (state) {
           case states.GAME_CHOICE:
+            selectionHistory.setValue([]);
             setStartPlayer("");
             setEndPlayer("");
             setWinningTeam([]);
             break;
           case states.GAME_STARTED:
             // const solvable = await isGameSolvable();
+            setStartTime(new Date());
             break;
           case states.GAME_WON:
+            const timeDiff = new Date() - startTime;
+            const seconds = timeDiff/1000;
+            setTotalSecondsPlayed(seconds);            
+            setPlayTime(convertSecondsToStopwatch(seconds));
             history.push(endPlayer);
             // getHighScores();
             // setUserScore(score);
@@ -83,15 +109,6 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    const convertStopwatchToSeconds = (time) => {
-        const hourSeconds = parseInt(time.hours) * 3600;
-        const minuteSeconds = parseInt(time.minutes) * 60;
-        const seconds = parseInt(time.seconds);
-        const msSeconds = parseInt(time.ms) / 1000;
-
-        return hourSeconds + minuteSeconds + seconds + msSeconds;
-    };
-
     return (
         <MainContext.Provider value={{
             isMobile, states,
@@ -106,7 +123,8 @@ export const DataProvider = ({ children }) => {
             showSolveDialog, setShowSolveDialog,
             showAlreadySelectedDialog, setshowAlreadySelectedDialog,
             errorPlayerName, setErrorPlayerName,
-            time, startTimer, stopTimer, convertStopwatchToSeconds
+            time, startTimer, stopTimer,
+            totalSecondsPlayed, playTime, convertSecondsToStopwatch
         }}>
             {children}
         </MainContext.Provider>

@@ -14,7 +14,7 @@ import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, close }) => {
     const {
-        startPlayer, endPlayer, time, numMoves, convertStopwatchToSeconds
+        startPlayer, endPlayer, totalSecondsPlayed, numMoves
     } = useContext(MainContext);
 
     const [nickname, setNickname] = useState("");
@@ -58,7 +58,7 @@ const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, close }) => {
     const submitName = () => {
         const scoreData = {            
             players: [startPlayer._id, endPlayer._id],
-            ...(newTimeScore && {seconds: convertStopwatchToSeconds(time)}),
+            ...(newTimeScore && {seconds: totalSecondsPlayed}),
             ...(newMovesScore && {moves: numMoves}),
             ...(newTimeScore && {timeLeader: nickname}),
             ...(newMovesScore && {movesLeader: nickname})            

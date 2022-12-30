@@ -56,7 +56,8 @@ const GameWon = () => {
             }
                 
             if(numMoves < highScore.moves) {
-                setNewMovesScore(true);
+                setNewMovesScore(true);                
+                setOpenScoreDialog(true);
                 setWinningMoves(numMoves);                
             }
             else {

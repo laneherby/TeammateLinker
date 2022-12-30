@@ -26,7 +26,6 @@ router.get("/api/getteammates/:playerID", async (ctx, next) => {
 });
 
 router.get("/api/search/:name", async (ctx, next) => {
-  console.log(ctx.params.name);
   const searchResult = await MongoConnection.searchPlayerNames(sanitize(ctx.params.name));
   ctx.body = searchResult;
 });
@@ -56,13 +55,11 @@ router.get("/api/solve", async (ctx, next) => {
 
 router.get("/api/checkhighscore", async (ctx, next) => {
   let highScoreResp =  await MongoConnection.checkHighScore(ctx.query.playerOne, ctx.query.playerTwo);
-  console.log(highScoreResp);
   highScoreResp = (highScoreResp === null) ? "no_scores" : highScoreResp;
   ctx.body = highScoreResp;
 });
 
 router.post("/api/updatescore", koaBody(), async (ctx, next) => {
-  console.log(ctx.request.body);
   const updateResult = MongoConnection.updateHighScore(ctx.request.body);
   ctx.body = updateResult;
 });

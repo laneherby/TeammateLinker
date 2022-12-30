@@ -98,7 +98,7 @@ const getTwoRandomPlayers = async (startYear = 1900, endYear = new Date().getFul
           ]
         ).toArray();
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
 
     return randomPlayers;
@@ -143,7 +143,7 @@ const getPlayerTeammates = async (playerID) => {
             }
           ]).toArray();
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 
     return teammates;
@@ -168,7 +168,7 @@ const searchPlayerNames = async (playerName) => {
       }
     ]).toArray();
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
   
   return searchResults;
@@ -224,8 +224,6 @@ const updateHighScore = async (scoreData) => {
       ...(movesLeader && { movesLeader }),
     }
   };
-
-  console.log('updateDoc', updateDoc);
 
   const updateResult = await highScores.updateOne(filter, updateDoc, {upsert: true});
   return updateResult;

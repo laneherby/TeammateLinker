@@ -43,6 +43,8 @@ const GameWon = () => {
             setNewMovesScore(true);
             setNewTimeScore(true);
             setOpenScoreDialog(true);
+            setWinningTime(playTime);
+            setWinningMoves(numMoves);
         }
         else {
             if(totalSecondsPlayed < highScore.seconds) {
@@ -58,7 +60,7 @@ const GameWon = () => {
             if(numMoves < highScore.moves) {
                 setNewMovesScore(true);                
                 setOpenScoreDialog(true);
-                setWinningMoves(numMoves);                
+                setWinningMoves(numMoves);
             }
             else {
                 setWinningMoves(numMoves);

@@ -23,7 +23,7 @@ const CreateRandomGame = ({ rollPlayers }) => {
     const [rollCounter, setRollCounter] = useState(1);
 
     useEffect(() => {
-        if(data) {
+        if(data && data.length > 0) {
             setCanStartGame(true);
             setStartPlayer(data[0]);
             setEndPlayer(data[1]);
@@ -69,7 +69,7 @@ const CreateRandomGame = ({ rollPlayers }) => {
         setTimeout(() => {
             setRollCooldown(false);
             setRollCounter(rollCounter+1);
-            if(!canStartGame) setCanStartGame(true);
+            setCanStartGame(true);
         }, 2000);
     };
 

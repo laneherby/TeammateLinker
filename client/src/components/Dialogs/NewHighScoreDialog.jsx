@@ -42,7 +42,6 @@ const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, close }) => {
     
     useEffect(() => {
         if(postBody !== null) {
-            console.log(postBody);
             setFetchURL(`/api/updatescore`);
         }
     }, [postBody]);
@@ -62,7 +61,7 @@ const NewHighScoreDialog = ({ open, newMovesScore, newTimeScore, close }) => {
             ...(newMovesScore && {moves: numMoves}),
             ...(newTimeScore && {timeLeader: nickname}),
             ...(newMovesScore && {movesLeader: nickname})            
-        };        
+        };
         setPostBody(scoreData);
         setButtonText(<CircularProgress />);
     };

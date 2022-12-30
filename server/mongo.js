@@ -213,15 +213,19 @@ const updateHighScore = async (scoreData) => {
     }
   };
 
+  const { players, seconds, moves, timeLeader, movesLeader } = scoreData;
+
   const updateDoc = {
     $set: {
-      players: scoreData.players,
-      seconds: scoreData.seconds,
-      moves: scoreData.moves,
-      timeLeader: scoreData.timeLeader,
-      movesLeader: scoreData.movesLeader
+      players,
+      ...(seconds && { seconds }),
+      ...(moves && { moves }),
+      ...(timeLeader && { timeLeader }),
+      ...(movesLeader && { movesLeader }),
     }
   };
+
+  console.log('updateDoc', updateDoc);
 
   const updateResult = await highScores.updateOne(filter, updateDoc, {upsert: true});
   return updateResult;

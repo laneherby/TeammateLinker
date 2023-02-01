@@ -65,9 +65,14 @@ router.post("/api/updatescore", koaBody(), async (ctx, next) => {
 });
 
 router.get("/api/getallscores", async (ctx, next) => {
-  let allScores = await MongoConnection.getAllScores();
+  const allScores = await MongoConnection.getAllScores();
   ctx.body = allScores;
 });
+
+router.post("/api/solvegame", koaBody(), async (ctx, next) => {
+  const { startPlayer, endPlayer } = ctx.request.body;
+  const solvedGame = MongoConnection.solveGame([startPlayer], endPlayer, true);
+})
 
 app
   .use(router.routes())

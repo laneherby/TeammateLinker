@@ -51,7 +51,19 @@ export const DataProvider = ({ children }) => {
           "ms": ms.split(".")[1]
       };
       return displayTime;
-  };
+    };
+
+    // const solveGame = async () => {
+    //   const playerLinks = (await axios.get(`/api/solve?startPlayer=${startPlayer._id.substring(startPlayer._id.lastIndexOf("/")+1, startPlayer._id.lastIndexOf("."))}&endPlayer=${endPlayer._id.substring(endPlayer._id.lastIndexOf("/")+1, endPlayer._id.lastIndexOf("."))}`)).data;    
+    //   return playerLinks;
+    // };
+  
+    // const isGameSolvable = async () => {
+    //   const solvedData = await solveGame();
+    //   if(solvedData.length === 1 && solvedData[0] === "NO ANSWERS") return false;
+  
+    //   return true;
+    // };
 
     const changeGameStateCtx = async (state, history) => {
         switch (state) {
@@ -71,12 +83,10 @@ export const DataProvider = ({ children }) => {
             setTotalSecondsPlayed(seconds);            
             setPlayTime(convertSecondsToStopwatch(seconds));
             history.push(endPlayer);
-            // getHighScores();
-            // setUserScore(score);
             break;
           case states.GAME_SOLVED: 
-            //const solvedTeam = await solveGame();
-            //setWinningTeam(solvedTeam);
+            // const solvedTeam = await solveGame();
+            // setWinningTeam(solvedTeam);
             break;
           default:
             break;

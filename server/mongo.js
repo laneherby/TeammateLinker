@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
+const SolveUtils = require('./solvegame-utils');
 
 let client;
 let db;
@@ -234,6 +235,29 @@ const getAllScores = async (scoreData) => {
   return highScores.find({}).toArray();
 };
 
+//function that supplies player to serach from which starts with startPlayer
+//compares all returned teammates to endPlayer _id
+//if not found then recursively call with new players that we're going to get teammates for
+//if players are within 10 years we won't skip any years
+//need to put in functionality to get like the end/beginning ~20% of career to search for new teammates and use that all the way up until within 10 years of end player
+//if more than 15 or 20 years we only grab the earliest/latest season of teammates
+//Going to send whole player objects including teams and years to functions, so I can check the team year combo to see if they're teammates without having to query
+//I don't think we even need id's to check for teammates because of how I hve the data set up?
+
+const solveGame = async (searchedPlayers, endPlayer, firstTime = false) => {
+  const endPlayerTeamYears = SolveUtils.getPlayerTeamYears(endPlayer);
+  let teammateStatus = false;
+  if(firstTime) {
+    teammateStatus = SolveUtils.checkForTeammates(searchedPlayers, endPlayerTeamYears);
+    if(teammateStatus) {
+      return [searchedPlayers[0]._id, endPlayer._id];
+    }
+  }
+
+
+
+};
+
 module.exports = {
     init,
     getTwoRandomPlayers,
@@ -241,5 +265,6 @@ module.exports = {
     searchPlayerNames,
     checkHighScore,
     updateHighScore,
-    getAllScores
+    getAllScores,
+    solveGame
 }
